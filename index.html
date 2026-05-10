@@ -20,6 +20,19 @@
     --shu-deep:     #0A4A50;
     --ai:           #0E5F66;
     --rule:         #C9D6D6;
+    /* Goals: dark teal field, light teal-tinted cards */
+    --goals-bg:          oklch(0.19 0.045 195);
+    --goals-ink:         oklch(0.96 0.009 195);
+    --goals-lead:        oklch(0.82 0.03 195);
+    --goals-eyebrow:     oklch(0.7 0.04 195);
+    --goals-em:          oklch(0.78 0.12 195);
+    --goals-eyebrow-bar: oklch(1 0 0 / 0.17);
+    --goals-card:        oklch(0.3 0.038 195);
+    --goals-card-edge:   oklch(1 0 0 / 0.1);
+    --goals-bar-track:   oklch(1 0 0 / 0.14);
+    --goals-progress-fill: oklch(0.76 0.15 195);
+    --goals-card-text:   oklch(0.94 0.012 195);
+    --goals-card-mute:   oklch(0.72 0.035 195);
   }
 
   * { box-sizing: border-box; }
@@ -204,20 +217,6 @@
     display: flex; align-items: flex-end; justify-content: center;
     min-height: 540px;
   }
-  .enso {
-    position: absolute;
-    top: -10px; right: 10%;
-    width: 220px; height: 220px;
-    border-radius: 50%;
-    border: 8px solid var(--sumi);
-    border-right-color: transparent;
-    border-top-color: oklch(0.18 0.012 60 / 0.6);
-    transform: rotate(-32deg);
-    opacity: 0.92;
-    pointer-events: none;
-  }
-  @media (max-width: 900px) { .enso { width: 140px; height: 140px; right: 6%; top: -30px; } }
-
   /* iPhone-style frame + real app screenshot */
   .hero-art figure.phone {
     margin: 0;
@@ -351,56 +350,8 @@
 
   /* ---------- AWARENESS (story) ---------- */
   .awareness {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
-    align-items: center;
+    max-width: 720px;
   }
-  @media (max-width: 900px) { .awareness { grid-template-columns: 1fr; gap: 60px; } }
-
-  .awareness .visual {
-    position: relative;
-    width: 100%;
-    max-width: 380px;
-    justify-self: center;
-    aspect-ratio: 4/5;
-    background: var(--paper-deep);
-    overflow: hidden;
-    border: 1px solid var(--paper-edge);
-  }
-  @media (max-width: 900px) {
-    .awareness .visual {
-      max-width: min(380px, 88vw);
-    }
-  }
-  .awareness .visual::before {
-    /* washi grain */
-    content: "";
-    position: absolute; inset: 0;
-    background-image:
-      repeating-linear-gradient(96deg, transparent 0 18px, oklch(0.85 0.01 80 / 0.35) 18px 19px),
-      repeating-linear-gradient(184deg, transparent 0 22px, oklch(0.85 0.01 80 / 0.25) 22px 23px);
-    pointer-events: none;
-  }
-  .awareness .visual .moon {
-    position: absolute;
-    width: 60%; aspect-ratio: 1;
-    border-radius: 50%;
-    background: var(--shu);
-    top: 14%; left: 50%; transform: translateX(-50%);
-    box-shadow: inset -20px -20px 80px oklch(0.3 0.16 30 / 0.35);
-  }
-  .awareness .visual .horizon {
-    position: absolute; left: 0; right: 0; bottom: 0; height: 28%;
-    background: var(--sumi);
-  }
-  .awareness .visual .hill {
-    position: absolute; left: -10%; right: -10%; bottom: 22%;
-    height: 22%;
-    background: var(--sumi-soft);
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  }
-  .awareness h3 { /* repurposing as section-title above; this block uses .section-title directly */ }
 
   .pull-numbers {
     display: grid;
@@ -432,11 +383,11 @@
     grid-column: span 6;
     border-right: 1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
-    padding: 40px 36px 44px;
+    padding: 32px 28px 36px;
     background: var(--paper);
     position: relative;
-    min-height: 280px;
-    display: flex; flex-direction: column; gap: 14px;
+    min-height: 0;
+    display: flex; flex-direction: column; gap: 12px;
   }
   @media (max-width: 760px) { .feat { grid-column: span 12; } }
   .feat .num {
@@ -447,28 +398,15 @@
   .feat h3 {
     font-family: "Fraunces", Georgia, serif;
     font-weight: 500;
-    font-size: 26px;
+    font-size: 24px;
     line-height: 1.2;
-    margin: 4px 0 4px;
+    margin: 0;
     color: var(--sumi);
   }
   .feat p {
     font-size: 15px; color: var(--sumi-soft); margin: 0;
     max-width: 42ch;
   }
-  .feat .glyph {
-    margin-top: auto;
-    align-self: flex-start;
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: var(--paper-deep);
-    border: 1px solid var(--rule);
-    display: grid; place-items: center;
-    font-family: "Fraunces", Georgia, serif;
-    color: var(--sumi);
-    font-size: 22px;
-  }
-  .feat.shu .glyph { background: var(--shu); color: var(--paper); border-color: transparent; }
 
   /* ---------- BUDGET ---------- */
   .budget {
@@ -522,13 +460,17 @@
   .budget-card .meta { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--sumi-mute); margin-top: 10px; letter-spacing: 0.04em; }
   .budget-card .meta .lim { color: var(--sumi); }
 
-  /* ---------- GOALS / ENVELOPES ---------- */
-  .goals { background: var(--sumi); color: var(--paper); }
-  .goals .eyebrow { color: oklch(0.85 0.01 80 / 0.6); }
-  .goals .eyebrow .ja, .goals .eyebrow .num { color: var(--shu); }
-  .goals .eyebrow .bar { background: oklch(1 0 0 / 0.18); }
-  .goals h2.section-title { color: var(--paper); }
-  .goals .lead { color: oklch(0.92 0.01 80 / 0.75); }
+  /* ---------- GOALS / ENVELOPES (light cards on deep teal) ---------- */
+  .goals {
+    background: var(--goals-bg);
+    color: var(--goals-ink);
+  }
+  .goals .eyebrow { color: var(--goals-eyebrow); }
+  .goals .eyebrow .ja, .goals .eyebrow .num { color: var(--goals-em); }
+  .goals .eyebrow .bar { background: var(--goals-eyebrow-bar); }
+  .goals h2.section-title { color: var(--goals-ink); }
+  .goals h2.section-title em { color: var(--goals-em); }
+  .goals .lead { color: var(--goals-lead); }
 
   .envelopes {
     margin-top: 64px;
@@ -540,40 +482,43 @@
 
   .env {
     position: relative;
-    padding: 30px 26px 26px;
+    padding: 22px 20px 20px;
     border-radius: 2px;
-    background: oklch(0.22 0.012 60);
-    border: 1px solid oklch(1 0 0 / 0.06);
-    display: flex; flex-direction: column; gap: 18px;
+    background: var(--goals-card);
+    border: 1px solid var(--goals-card-edge);
+    display: flex; flex-direction: column;
+    gap: 14px;
     overflow: hidden;
   }
-  .env::before {
-    /* envelope flap line */
-    content: "";
-    position: absolute; left: 0; right: 0; top: 0; height: 56px;
-    background: linear-gradient(180deg, oklch(0.26 0.012 60), transparent);
-    pointer-events: none;
+  .env__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
   }
-  .env::after {
-    content: ""; position: absolute; left: 50%; right: 0; top: 0;
-    height: 36px;
-    border-left: 1px solid oklch(1 0 0 / 0.08);
-    transform: skewX(-40deg);
-    transform-origin: top left;
+  .env__intro {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
   .env .stamp {
-    align-self: flex-end;
-    width: 48px; height: 48px;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
     background: var(--shu);
     color: var(--paper);
-    display: grid; place-items: center;
+    display: grid;
+    place-items: center;
     font-family: "Fraunces", Georgia, serif;
     font-size: 22px;
     border-radius: 4px;
-    position: relative; z-index: 1;
+    position: relative;
+    z-index: 1;
+    box-shadow: inset 0 0 0 1px oklch(0.35 0.08 195 / 0.35);
   }
-  .env .ttl { font-family: "Fraunces", Georgia, serif; font-size: 24px; color: var(--paper); line-height: 1.2; }
-  .env .sub { font-size: 13px; color: oklch(0.85 0.01 80 / 0.55); margin-top: -10px; }
+  .env .ttl { font-family: "Fraunces", Georgia, serif; font-size: 22px; color: var(--goals-card-text); line-height: 1.2; }
+  .env .sub { font-size: 13px; color: var(--goals-card-mute); }
   .env .progress {
     margin-top: auto;
     display: flex; flex-direction: column; gap: 8px;
@@ -582,10 +527,11 @@
     display: flex; justify-content: space-between;
     font-family: "JetBrains Mono", monospace;
     font-size: 12px;
-    color: oklch(0.92 0.01 80 / 0.85);
+    color: var(--goals-card-text);
   }
-  .env .progress .nums .of { color: oklch(0.85 0.01 80 / 0.5); }
-  .env .bar { background: oklch(1 0 0 / 0.08); }
+  .env .progress .nums .of { color: var(--goals-card-mute); }
+  .env .bar { background: var(--goals-bar-track); }
+  .goals .env .bar .fill.shu { background: var(--goals-progress-fill); }
 
   /* ---------- WHY MANUAL ---------- */
   .why .quote-box {
@@ -640,43 +586,8 @@
     background: var(--paper-deep);
   }
   .privacy-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-    align-items: center;
+    max-width: 720px;
   }
-  @media (max-width: 900px) { .privacy-grid { grid-template-columns: 1fr; gap: 50px; } }
-
-  .privacy .seal-art {
-    aspect-ratio: 1;
-    max-width: 420px;
-    margin: 0 auto;
-    background: var(--paper);
-    border: 1px solid var(--paper-edge);
-    position: relative;
-    display: grid; place-items: center;
-  }
-  .privacy .seal-art::before {
-    content: ""; position: absolute; inset: 24px;
-    border: 1px solid var(--rule);
-  }
-  .privacy .seal-art .glyph {
-    width: 56%; aspect-ratio: 1;
-    background: var(--shu);
-    border-radius: 50%;
-    display: grid; place-items: center;
-    color: var(--paper);
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 92px;
-    font-weight: 700;
-    box-shadow: inset 0 0 0 1px oklch(0.4 0.18 30 / 0.4);
-  }
-  .privacy .seal-art .corner {
-    position: absolute;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px; letter-spacing: 0.1em;
-    color: var(--sumi-mute);
-  }
-  .privacy .seal-art .tl { top: 12px; left: 14px; }
-  .privacy .seal-art .br { bottom: 12px; right: 14px; }
 
   .privacy ul.commit {
     list-style: none; padding: 0; margin: 32px 0 0;
@@ -701,14 +612,6 @@
   .endcta {
     text-align: center;
     padding: 140px 0 120px;
-  }
-  .endcta .kanji {
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 96px;
-    color: var(--shu);
-    line-height: 1;
-    margin-bottom: 28px;
-    font-weight: 500;
   }
   .endcta h2 {
     font-family: "Fraunces", Georgia, serif;
@@ -786,7 +689,6 @@
     </div>
 
     <div class="hero-art">
-      <div class="enso" aria-hidden="true"></div>
       <div class="tate" aria-hidden="true">SPEND&nbsp;·&nbsp;DELIBERATELY</div>
       <figure class="phone">
         <div class="phone__screen">
@@ -818,12 +720,6 @@
 
   <!-- AWARENESS / KNOW WHERE YOUR MONEY GOES -->
   <section class="awareness">
-    <div class="visual" aria-label="Stylized horizon illustration">
-      <div class="moon"></div>
-      <div class="hill"></div>
-      <div class="horizon"></div>
-    </div>
-
     <div>
       <div class="eyebrow"><span class="num">01</span><span class="bar"></span> Purpose</div>
       <h2 class="section-title">Know where<br />your money <em>goes.</em></h2>
@@ -846,29 +742,25 @@
     <p class="lead">Designed for the moments you'd otherwise skip—standing at the till, between meetings, on the train home.</p>
 
     <div class="grid">
-      <div class="feat shu">
+      <div class="feat">
         <span class="num">01 · REPEAT</span>
         <h3>Quick selection<br />from past expenses.</h3>
         <p>Same coffee shop, same store. Repeat a recent entry in two taps and keep your hands on your day.</p>
-        <div class="glyph" style="font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.06em;">↺</div>
       </div>
       <div class="feat">
         <span class="num">02 · CAPTURE</span>
         <h3>Snap receipts<br />with your camera.</h3>
         <p>Capture amounts instantly. The receipt stays attached to the entry for later, when you have time to think.</p>
-        <div class="glyph" style="font-family:'JetBrains Mono', monospace; font-size:14px;">◫</div>
       </div>
       <div class="feat">
         <span class="num">03 · BUDGET</span>
         <h3>Flexible budgets<br />on your terms.</h3>
         <p>Set limits by category, by merchant, or by any custom tag you invent. Budgets bend to your life, not the reverse.</p>
-        <div class="glyph" style="font-family:'JetBrains Mono', monospace; font-size:14px;">⏃</div>
       </div>
       <div class="feat">
         <span class="num">04 · GOALS</span>
         <h3>Goals for the things<br />that matter.</h3>
         <p>Fund specific events—trips, weddings, projects. Each goal is a small envelope you fill, deliberately.</p>
-        <div class="glyph" style="font-family:'JetBrains Mono', monospace; font-size:18px;">◯</div>
       </div>
     </div>
   </div>
@@ -940,27 +832,39 @@
 
     <div class="envelopes">
       <div class="env">
-        <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.06em;">WED</div>
-        <div class="ttl">Sister's Wedding</div>
-        <div class="sub">Maui · September</div>
+        <div class="env__head">
+          <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">WED</div>
+          <div class="env__intro">
+            <div class="ttl">Sister's Wedding</div>
+            <div class="sub">Maui · September</div>
+          </div>
+        </div>
         <div class="progress">
           <div class="nums"><span>$1,240</span><span class="of">of $3,500</span></div>
           <div class="bar"><div class="fill shu" style="width:35%"></div></div>
         </div>
       </div>
       <div class="env">
-        <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.06em;">TRIP</div>
-        <div class="ttl">Big Sur Road Trip</div>
-        <div class="sub">Ten days · April</div>
+        <div class="env__head">
+          <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">TRIP</div>
+          <div class="env__intro">
+            <div class="ttl">Big Sur Road Trip</div>
+            <div class="sub">Ten days · April</div>
+          </div>
+        </div>
         <div class="progress">
           <div class="nums"><span>$2,640</span><span class="of">of $4,000</span></div>
           <div class="bar"><div class="fill shu" style="width:66%"></div></div>
         </div>
       </div>
       <div class="env">
-        <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:13px; letter-spacing:0.06em;">HOME</div>
-        <div class="ttl">Kitchen Reno</div>
-        <div class="sub">Backsplash & counters</div>
+        <div class="env__head">
+          <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">HOME</div>
+          <div class="env__intro">
+            <div class="ttl">Kitchen Reno</div>
+            <div class="sub">Backsplash & counters</div>
+          </div>
+        </div>
         <div class="progress">
           <div class="nums"><span>$820</span><span class="of">of $6,000</span></div>
           <div class="bar"><div class="fill shu" style="width:14%"></div></div>
@@ -995,11 +899,6 @@
 <section class="privacy" id="privacy">
   <div class="page">
     <div class="privacy-grid">
-      <div class="seal-art" aria-label="On-device seal placeholder">
-        <span class="corner tl">ON / DEVICE</span>
-        <div class="glyph" style="font-family:'Fraunces', Georgia, serif; font-size:140px;">●</div>
-        <span class="corner br">NO / SYNC</span>
-      </div>
       <div>
         <div class="eyebrow"><span class="num">06</span><span class="bar"></span> Privacy</div>
         <h2 class="section-title">Your data <em>stays with you.</em></h2>
@@ -1019,7 +918,6 @@
 
   <!-- END CTA -->
   <section class="endcta" id="download">
-    <div class="kanji" style="font-size:120px; line-height:1;">●</div>
     <h2>Spend with a clear sky.</h2>
     <p>Skie is in Alpha on the web—open to friends and family. iOS and Android beta apps are coming soon.</p>
     <div class="cta-row">
