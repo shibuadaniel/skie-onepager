@@ -139,14 +139,31 @@
     font-weight: 300;
   }
 
-  .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .cta-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    width: 100%;
+    max-width: 540px;
+  }
+  @media (max-width: 520px) {
+    .cta-row { grid-template-columns: 1fr; }
+  }
   .btn {
-    display: inline-flex; align-items: center; gap: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     padding: 14px 22px;
     border-radius: 2px;
-    font-size: 14px; letter-spacing: 0.04em;
+    font-size: 14px;
+    letter-spacing: 0.04em;
     text-decoration: none;
+    text-align: center;
     transition: transform 120ms ease, background 120ms ease;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    min-height: 48px;
   }
   .btn-primary {
     background: var(--sumi); color: var(--paper);
@@ -154,7 +171,7 @@
   .btn-primary:hover { background: var(--shu-deep); }
   .btn-ghost {
     background: transparent; color: var(--sumi);
-    border: 1px solid var(--rule);
+    border-color: var(--rule);
   }
   .btn-ghost:hover { border-color: var(--sumi); }
   .btn .arrow { font-family: "Fraunces", Georgia, serif; font-size: 16px; }
@@ -254,14 +271,28 @@
   .marquee {
     border-top: 1px solid var(--rule);
     border-bottom: 1px solid var(--rule);
-    padding: 22px 0;
-    display: flex; align-items: center; gap: 56px;
-    overflow: hidden;
+    padding: 22px 56px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 28px;
     color: var(--sumi-soft);
-    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 720px) {
+    .marquee {
+      padding: 22px 28px;
+      gap: 10px 18px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+    }
   }
   .marquee .ja { font-family: "Fraunces", Georgia, serif; letter-spacing: 0.2em; text-transform: none; color: var(--shu); }
-  .marquee span { white-space: nowrap; }
+  .marquee span { max-width: 100%; text-align: center; }
 
   /* ---------- SECTION SHELL ---------- */
   section { padding: 120px 0; position: relative; }
@@ -308,10 +339,18 @@
 
   .awareness .visual {
     position: relative;
+    width: 100%;
+    max-width: 380px;
+    justify-self: center;
     aspect-ratio: 4/5;
     background: var(--paper-deep);
     overflow: hidden;
     border: 1px solid var(--paper-edge);
+  }
+  @media (max-width: 900px) {
+    .awareness .visual {
+      max-width: min(380px, 88vw);
+    }
   }
   .awareness .visual::before {
     /* washi grain */
@@ -340,14 +379,6 @@
     background: var(--sumi-soft);
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   }
-  .awareness .visual .placeholder-tag {
-    position: absolute; bottom: 14px; left: 14px;
-    color: var(--paper);
-    font-family: "JetBrains Mono", monospace;
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-    opacity: 0.7;
-  }
-
   .awareness h3 { /* repurposing as section-title above; this block uses .section-title directly */ }
 
   .pull-numbers {
@@ -452,7 +483,7 @@
   .spec .v .ex { color: var(--sumi-mute); display: block; font-size: 13px; margin-top: 2px; }
 
   /* Budget visual mock */
-  .budget-card-stack { position: relative; padding-right: 30px; }
+  .budget-card-stack { position: relative; }
   .budget-card {
     background: var(--paper);
     border: 1px solid var(--paper-edge);
@@ -553,15 +584,20 @@
     letter-spacing: -0.01em;
     color: var(--sumi);
     position: relative;
-    padding-left: 28px;
+    /* Room for the large 「 so it never sits on the first line */
+    padding-left: clamp(60px, 1.55em, 84px);
+    padding-top: 0.12em;
   }
   .why blockquote::before {
     content: "「";
-    position: absolute; left: -8px; top: -10px;
-    font-size: 60px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: clamp(38px, 2.85vw, 50px);
     color: var(--shu);
     font-family: "Fraunces", Georgia, serif;
-    line-height: 1;
+    line-height: 0.72;
+    pointer-events: none;
   }
   .why .observ { display: flex; flex-direction: column; gap: 22px; }
   .why .observ .row2 {
@@ -666,7 +702,10 @@
     color: var(--sumi-soft); font-size: 18px; max-width: 480px;
     margin: 0 auto 36px;
   }
-  .endcta .cta-row { justify-content: center; }
+  .endcta .cta-row {
+    max-width: min(100%, 680px);
+    margin-inline: auto;
+  }
 
   /* ---------- FOOTER ---------- */
   footer {
@@ -754,11 +793,10 @@
 
   <!-- AWARENESS / KNOW WHERE YOUR MONEY GOES -->
   <section class="awareness">
-    <div class="visual" aria-label="Placeholder image">
+    <div class="visual" aria-label="Stylized horizon illustration">
       <div class="moon"></div>
       <div class="hill"></div>
       <div class="horizon"></div>
-      <div class="placeholder-tag">[ image · sumi-e horizon ]</div>
     </div>
 
     <div>
@@ -846,7 +884,7 @@
           <div class="bar"><div class="fill" style="width:62%"></div></div>
           <div class="meta"><span>$248.40 spent</span><span class="lim">/ $400 limit</span></div>
         </div>
-        <div class="budget-card" style="margin-left: 28px;">
+        <div class="budget-card">
           <div class="head">
             <div class="nm">Starbucks <span style="color:var(--sumi-mute); font-family:'JetBrains Mono', monospace; font-size:11px; margin-left:6px;">merchant</span></div>
             <div class="pct">88%</div>
@@ -854,7 +892,7 @@
           <div class="bar"><div class="fill shu" style="width:88%"></div></div>
           <div class="meta"><span>$44.00 spent</span><span class="lim">/ $50 limit</span></div>
         </div>
-        <div class="budget-card" style="margin-left: 12px;">
+        <div class="budget-card">
           <div class="head">
             <div class="nm">#gym <span style="color:var(--sumi-mute); font-family:'JetBrains Mono', monospace; font-size:11px; margin-left:6px;">custom tag</span></div>
             <div class="pct">31%</div>
