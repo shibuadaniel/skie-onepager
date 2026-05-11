@@ -20,7 +20,7 @@
     --shu-deep:     #0A4A50;
     --ai:           #0E5F66;
     --rule:         #C9D6D6;
-    /* Goals: dark teal field, light teal-tinted cards */
+    /* TRAK section: dark teal field, tinted cards */
     --goals-bg:          oklch(0.19 0.045 195);
     --goals-ink:         oklch(0.96 0.009 195);
     --goals-lead:        oklch(0.82 0.03 195);
@@ -460,7 +460,7 @@
   .budget-card .meta { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--sumi-mute); margin-top: 10px; letter-spacing: 0.04em; }
   .budget-card .meta .lim { color: var(--sumi); }
 
-  /* ---------- GOALS / ENVELOPES (light cards on deep teal) ---------- */
+  /* ---------- TRAK (spending lines, month over month) ---------- */
   .goals {
     background: var(--goals-bg);
     color: var(--goals-ink);
@@ -659,7 +659,7 @@
     <nav class="nav">
       <a href="#features">Features</a>
       <a href="#budgets">Budgets</a>
-      <a href="#goals">Goals</a>
+      <a href="#trak">TRAK</a>
       <a href="#privacy">Privacy</a>
     </nav>
   </header>
@@ -758,9 +758,9 @@
         <p>Set limits by category, by merchant, or by any custom tag you invent. Budgets bend to your life, not the reverse.</p>
       </div>
       <div class="feat">
-        <span class="num">04 · GOALS</span>
-        <h3>Goals for the things<br />that matter.</h3>
-        <p>Fund specific events—trips, weddings, projects. Each goal is a small envelope you fill, deliberately.</p>
+        <span class="num">04 · TRAK</span>
+        <h3>TRAK for the spending<br />you care about.</h3>
+        <p>Choose a category, tag, or merchant and follow it across months. You're watching real outflows—not funding a finish line.</p>
       </div>
     </div>
   </div>
@@ -823,12 +823,12 @@
 
 </div>
 
-<!-- GOALS -->
-<section class="goals" id="goals">
+<!-- TRAK -->
+<section class="goals" id="trak">
   <div class="page">
-    <div class="eyebrow"><span class="num">04</span><span class="bar"></span> Goals</div>
-    <h2 class="section-title">Envelopes for what <em>matters.</em></h2>
-    <p class="lead">Create a goal for the things you're working toward. Set the limit. Fund it on your own terms. Watch it fill.</p>
+    <div class="eyebrow"><span class="num">04</span><span class="bar"></span> TRAK</div>
+    <h2 class="section-title">TRAK for what <em>matters.</em></h2>
+    <p class="lead">A TRAK is a spending line you define—by category, tag, or merchant—that you watch month after month. It's for seeing patterns in money you've already spent, not for funding a milestone or hitting a savings target.</p>
 
     <div class="envelopes">
       <div class="env">
@@ -862,7 +862,7 @@
           <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">HOME</div>
           <div class="env__intro">
             <div class="ttl">Kitchen Reno</div>
-            <div class="sub">Backsplash & counters</div>
+            <div class="sub">Backsplash &amp; counters</div>
           </div>
         </div>
         <div class="progress">
