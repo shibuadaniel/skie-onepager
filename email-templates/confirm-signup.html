@@ -1,0 +1,80 @@
+<!--
+  Supabase Auth — "Confirm signup" (or custom SMTP) HTML body.
+
+  Paste into: Dashboard → Authentication → Email Templates → Confirm signup
+  (or your provider’s equivalent HTML field).
+
+  Variables (Supabase): {{ .ConfirmationURL }}, {{ .SiteURL }}, {{ .Email }}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Confirm your email — Skie</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#DDE7E7;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+  <!-- Preheader (hidden in many clients; improves inbox preview) -->
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+    Confirm your email to finish setting up your Skie account.
+  </div>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#DDE7E7;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:560px;background-color:#F1F4F4;border-radius:4px;border:1px solid #C9D6D6;overflow:hidden;">
+          <tr>
+            <td style="padding:36px 32px 28px 32px;font-family:Georgia,'Times New Roman',serif;">
+              <p style="margin:0 0 20px 0;font-size:22px;font-weight:700;letter-spacing:0.02em;color:#0F1F22;">
+                Skie
+              </p>
+              <h1 style="margin:0 0 16px 0;font-size:24px;font-weight:500;line-height:1.25;color:#0F1F22;">
+                Confirm your email
+              </h1>
+              <p style="margin:0 0 20px 0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#2A3D40;">
+                Thanks for signing up. Tap the button below to verify this address and finish activating your account.
+              </p>
+              <!-- CTA -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px 0;">
+                <tr>
+                  <td align="left" style="border-radius:2px;background-color:#0E5F66;">
+                    <a href="{{ .ConfirmationURL }}" target="_blank" rel="noopener" style="display:inline-block;padding:14px 24px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:15px;font-weight:600;letter-spacing:0.04em;color:#F1F4F4;text-decoration:none;">
+                      Confirm email
+                    </a>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin:0 0 8px 0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#6B7E81;">
+                If the button doesn’t work, copy and paste this link into your browser:
+              </p>
+              <p style="margin:0 0 24px 0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.5;word-break:break-all;color:#0E5F66;">
+                <a href="{{ .ConfirmationURL }}" style="color:#0E5F66;text-decoration:underline;">{{ .ConfirmationURL }}</a>
+              </p>
+              <p style="margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;color:#6B7E81;">
+                If you didn’t create a Skie account, you can ignore this message.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:16px 32px 28px 32px;border-top:1px solid #C9D6D6;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.5;color:#6B7E81;">
+              <p style="margin:0;">
+                Sent to {{ .Email }} · <a href="{{ .SiteURL }}" style="color:#0E5F66;text-decoration:underline;">{{ .SiteURL }}</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
