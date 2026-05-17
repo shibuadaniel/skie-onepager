@@ -460,7 +460,7 @@
   .budget-card .meta { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--sumi-mute); margin-top: 10px; letter-spacing: 0.04em; }
   .budget-card .meta .lim { color: var(--sumi); }
 
-  /* ---------- TRAK (spending lines, month over month) ---------- */
+  /* ---------- TRAK (multi-month / multi-currency spending lines) ---------- */
   .goals {
     background: var(--goals-bg);
     color: var(--goals-ink);
@@ -471,6 +471,30 @@
   .goals h2.section-title { color: var(--goals-ink); }
   .goals h2.section-title em { color: var(--goals-em); }
   .goals .lead { color: var(--goals-lead); }
+
+  .goals .trak-spec {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    list-style: none;
+    padding: 0;
+  }
+  @media (max-width: 900px) { .goals .trak-spec { grid-template-columns: 1fr; } }
+  .goals .trak-spec .k {
+    display: block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--goals-em);
+    margin-bottom: 8px;
+  }
+  .goals .trak-spec .v {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--goals-lead);
+  }
 
   .envelopes {
     margin-top: 64px;
@@ -758,8 +782,8 @@
       </div>
       <div class="feat">
         <span class="num">04 · TRAK</span>
-        <h3>TRAK for the spending<br />you care about.</h3>
-        <p>Choose a category, tag, or merchant and follow it across months. You're watching real outflows—not funding a finish line.</p>
+        <h3>TRAK what crosses months<br />and borders.</h3>
+        <p>A trip abroad, tuition, a wedding—log in any currency, convert to your base, and optionally keep it off your monthly ledger.</p>
       </div>
     </div>
   </div>
@@ -826,8 +850,23 @@
 <section class="goals" id="trak">
   <div class="page">
     <div class="eyebrow"><span class="num">04</span><span class="bar"></span> TRAK</div>
-    <h2 class="section-title">TRAK for what <em>matters.</em></h2>
-    <p class="lead">A TRAK is a spending line you define—by category, tag, or merchant—that you watch month after month. It's for seeing patterns in money you've already spent, not for funding a milestone or hitting a savings target.</p>
+    <h2 class="section-title">TRAK when one month <em>isn't enough.</em></h2>
+    <p class="lead">A TRAK is its own spending line for something that stretches across months or currencies—a trip abroad, tuition, an upcoming wedding. Log entries in local currency; Skie converts them to your app's base currency. When you set one up, you can keep it out of your monthly ledger so everyday totals stay clear.</p>
+
+    <ul class="trak-spec">
+      <li>
+        <span class="k">Any currency</span>
+        <span class="v">On a trip, log in yen, euros, or whatever you're spending. Each amount converts to your base currency automatically.</span>
+      </li>
+      <li>
+        <span class="k">Across months</span>
+        <span class="v">Weddings, tuition, renovations—follow the real cost of something that doesn't fit a single billing cycle.</span>
+      </li>
+      <li>
+        <span class="k">Separate ledger</span>
+        <span class="v">Exclude a TRAK from your monthly totals when you set it up, so special spending doesn't blur your day-to-day habits.</span>
+      </li>
+    </ul>
 
     <div class="envelopes">
       <div class="env">
@@ -847,8 +886,8 @@
         <div class="env__head">
           <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">TRIP</div>
           <div class="env__intro">
-            <div class="ttl">Big Sur Road Trip</div>
-            <div class="sub">Ten days · April</div>
+            <div class="ttl">Tokyo Trip</div>
+            <div class="sub">¥ &amp; USD · converted to base</div>
           </div>
         </div>
         <div class="progress">
@@ -858,14 +897,14 @@
       </div>
       <div class="env">
         <div class="env__head">
-          <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">HOME</div>
+          <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">EDU</div>
           <div class="env__intro">
-            <div class="ttl">Kitchen Reno</div>
-            <div class="sub">Backsplash &amp; counters</div>
+            <div class="ttl">College Tuition</div>
+            <div class="sub">Spring semester · 2026</div>
           </div>
         </div>
         <div class="progress">
-          <div class="nums"><span>$820</span><span class="of">of $6,000</span></div>
+          <div class="nums"><span>$820</span><span class="of">of $12,000</span></div>
           <div class="bar"><div class="fill shu" style="width:14%"></div></div>
         </div>
       </div>
