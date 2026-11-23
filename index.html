@@ -2,975 +2,277 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Skie — Track Spending Intentionally</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    /* Skie teal palette */
-    --paper:        #F1F4F4;
-    --paper-deep:   #DDE7E7;
-    --paper-edge:   #C9D6D6;
-    --sumi:         #0F1F22;
-    --sumi-soft:    #2A3D40;
-    --sumi-mute:    #6B7E81;
-    --shu:          #0E5F66;   /* primary teal */
-    --shu-deep:     #0A4A50;
-    --ai:           #0E5F66;
-    --rule:         #C9D6D6;
-    /* TRAK section: dark teal field, tinted cards */
-    --goals-bg:          oklch(0.19 0.045 195);
-    --goals-ink:         oklch(0.96 0.009 195);
-    --goals-lead:        oklch(0.82 0.03 195);
-    --goals-eyebrow:     oklch(0.7 0.04 195);
-    --goals-em:          oklch(0.78 0.12 195);
-    --goals-eyebrow-bar: oklch(1 0 0 / 0.17);
-    --goals-card:        oklch(0.3 0.038 195);
-    --goals-card-edge:   oklch(1 0 0 / 0.1);
-    --goals-bar-track:   oklch(1 0 0 / 0.14);
-    --goals-progress-fill: oklch(0.76 0.15 195);
-    --goals-card-text:   oklch(0.94 0.012 195);
-    --goals-card-mute:   oklch(0.72 0.035 195);
-  }
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Skie Design Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css" />
+<style>/* Layout: Skie's landing pattern turned into a studio front door. Pale ground, serif headlines with one italic word, a four-colour strip (one per product), then a 2x2 shelf of product cards. Each product keeps its own accent. */
+:root{
+  --bg:#eef3f3; --band:#dde6e7; --card:#f6f9f9; --line:#c9d6d8;
+  --ink:#13262a; --muted:#566b6f; --faint:#7d9195;
+  --studio:#145f63;
+  --skie:#145f63; --chek:#6a1fd1; --reveal:#2c4f7c; --marg:#8a3a32;
+  --dark:#0f2a2c; --dark-ink:#e6efef; --dark-muted:#9fb6b8; --dark-line:#26474a;
+  --q:#5a4500; --q-bg:#fff6d6; --q-line:#e1c565;
+  --btn:#13262a; --btn-ink:#f4f7f7;
+  --f-display:"Fraunces", Georgia, "Times New Roman", serif;
+  --f-body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0d1a1c; --band:#122426; --card:#152a2d; --line:#28403f;
+  --ink:#e4eeee; --muted:#a3b7b9; --faint:#7f9799;
+  --studio:#6cc3c6;
+  --skie:#6cc3c6; --chek:#c3a3ff; --reveal:#9db8e0; --marg:#e09a8f;
+  --dark:#07292b; --dark-ink:#e6efef; --dark-muted:#9fb6b8; --dark-line:#24494c;
+  --q:#f3dc8a; --q-bg:#3a3112; --q-line:#6d5a1f;
+  --btn:#e4eeee; --btn-ink:#0d1a1c;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1a1c; --band:#122426; --card:#152a2d; --line:#28403f;
+  --ink:#e4eeee; --muted:#a3b7b9; --faint:#7f9799;
+  --studio:#6cc3c6;
+  --skie:#6cc3c6; --chek:#c3a3ff; --reveal:#9db8e0; --marg:#e09a8f;
+  --dark:#07292b; --dark-ink:#e6efef; --dark-muted:#9fb6b8; --dark-line:#24494c;
+  --q:#f3dc8a; --q-bg:#3a3112; --q-line:#6d5a1f;
+  --btn:#e4eeee; --btn-ink:#0d1a1c;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--q-bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--studio);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}}
 
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
-  body {
-    background: var(--paper);
-    color: var(--sumi);
-    font-family: "Inter", system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  ::selection { background: var(--shu); color: var(--paper); }
+body.clean .ph{background:transparent;color:inherit;border:0;padding:0}
 
-  .display { font-family: "Fraunces", Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -0.01em; }
-  .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+/* type */
+h1,h2,h3{font-family:var(--f-display);font-weight:500;letter-spacing:-.015em;text-wrap:balance;margin:0}
+h1 em,h2 em{font-style:italic;color:var(--studio)}
+h1{font-size:clamp(46px,8vw,92px);line-height:.98}
+h2{font-size:clamp(32px,4.4vw,52px);line-height:1.06}
+h3{font-size:28px;line-height:1.1}
+p{margin:0}
+.lede{font-size:clamp(17px,1.7vw,20px);color:var(--muted);max-width:52ch}
+.label{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.stack{display:grid;gap:22px;align-content:start}
 
-  .page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 56px;
-  }
-  @media (max-width: 720px) { .page { padding: 0 28px; } }
+/* header */
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.mark{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--bg);font:italic 500 18px var(--f-display)}
+.brand b{font:500 21px var(--f-display)}
+.nav{display:flex;gap:22px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav a{text-decoration:none}
+.nav a:hover{color:var(--ink)}
 
-  /* ---------- TOPBAR ---------- */
-  .topbar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-top: 28px;
-  }
-  .mark {
-    display: flex; align-items: center; gap: 14px;
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 22px; font-weight: 700;
-    letter-spacing: 0.02em;
-  }
-  .mark .seal {
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    background: var(--shu);
-    color: var(--paper);
-    display: grid; place-items: center;
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 700; font-size: 17px;
-    letter-spacing: 0;
-    box-shadow: inset 0 0 0 1px oklch(0.4 0.18 30 / 0.4),
-                0 1px 0 oklch(0.4 0.18 30 / 0.2);
-  }
-  .mark .ja { font-family: "Fraunces", Georgia, serif; color: var(--sumi-mute); font-weight: 400; font-size: 14px; margin-left: 2px; }
+/* hero */
+.hero .wrap{display:grid;gap:28px;padding-block:clamp(36px,7vw,88px) clamp(40px,6vw,72px)}
+.status{display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--studio)}
 
-  .nav {
-    display: flex; gap: 30px;
-    font-size: 13px;
-    color: var(--sumi-soft);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .nav a { color: inherit; text-decoration: none; }
-  .nav a:hover { color: var(--shu); }
-  @media (max-width: 720px) { .nav { display: none; } }
+/* four-colour strip: one segment per product */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
+.strip a{display:grid;gap:10px;text-decoration:none;min-width:0}
+.strip i{display:block;height:10px;border-radius:2px;background:var(--p);transition:height .2s}
+.strip a:hover i{height:16px}
+.strip span{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.strip a:hover span{color:var(--ink)}
 
-  /* ---------- HERO ---------- */
-  .hero {
-    position: relative;
-    padding: 44px 0 130px;
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 60px;
-    align-items: end;
-  }
-  @media (max-width: 900px) { .hero { grid-template-columns: 1fr; padding: 32px 0 90px; } }
+/* products */
+section{padding-block:clamp(64px,8vw,112px);scroll-margin-top:56px}
+.band{background:var(--band)}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 32px}
+.shelf{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+@media (min-width:760px){.shelf{grid-template-columns:1fr 1fr}}
+.prod{background:var(--card);padding:clamp(24px,3vw,36px);display:grid;gap:16px;align-content:start;position:relative;min-width:0;scroll-margin-top:64px}
+.prod::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--p)}
+.prod .row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.prod .id{display:flex;align-items:center;gap:12px}
+.prod .pm{width:40px;height:40px;border-radius:50%;background:var(--p);color:var(--card);display:grid;place-items:center;font:500 19px var(--f-display)}
+.prod .pm.it{font-style:italic}
+.prod .name{font:500 24px var(--f-display)}
+.prod .what{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.prod h3{font-size:clamp(26px,2.6vw,32px)}
+.prod h3 em{font-style:italic;color:var(--p)}
+.prod p{color:var(--muted);font-size:15.5px;max-width:46ch}
+.pstat{display:flex;flex-wrap:wrap;gap:6px}
+.pstat span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:3px 8px;border-radius:2px}
+.links{display:flex;flex-wrap:wrap;gap:10px 20px;padding-top:6px;border-top:1px solid var(--line)}
+.links a{font-size:14.5px;font-weight:500;text-decoration:none;padding-top:10px}
+.links a.main{color:var(--p)}
+.links a.sub{color:var(--muted)}
+.links a:hover{text-decoration:underline;text-underline-offset:3px}
 
-  .hero-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 24px;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--sumi-mute);
-  }
-  .hero-meta__row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .hero-meta .dot {
-    flex-shrink: 0;
-    width: 6px;
-    height: 6px;
-    background: var(--shu);
-    border-radius: 50%;
-  }
-  .hero-meta .ja {
-    font-family: "Fraunces", Georgia, serif;
-    letter-spacing: 0.1em;
-    text-transform: none;
-    font-size: 13px;
-  }
+/* about */
+.about .wrap{display:grid;gap:40px}
+@media (min-width:880px){.about .wrap{grid-template-columns:.9fr 1.1fr;align-items:start}}
+.facts{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.facts div{background:var(--bg);padding:18px 20px;display:grid;gap:4px}
+.facts b{font:500 20px var(--f-display)}
+.facts span{color:var(--muted);font-size:15px}
 
-  h1.headline {
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 500;
-    font-size: clamp(56px, 8vw, 112px);
-    line-height: 0.96;
-    letter-spacing: -0.025em;
-    margin: 0 0 32px;
-    color: var(--sumi);
-  }
-  h1.headline em {
-    font-style: normal;
-    color: var(--shu);
-    font-weight: 700;
-  }
-  h1.headline .stroke {
-    display: inline-block;
-    position: relative;
-  }
-  h1.headline .stroke::after {
-    content: "";
-    position: absolute;
-    left: 0; right: -6px; bottom: 0.06em;
-    height: 0.08em;
-    background: var(--shu);
-    opacity: 0.85;
-    border-radius: 2px;
-  }
+/* contact (dark band, like Skie's TRAK band) */
+.dark{background:var(--dark);color:var(--dark-ink)}
+.dark .wrap{display:grid;gap:20px;justify-items:start}
+.dark h2 em{color:var(--dark-ink);opacity:.85}
+.dark .lede{color:var(--dark-muted)}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.mail code{font:500 clamp(18px,2.4vw,24px) var(--f-mono);color:var(--dark-ink);background:transparent;border:1px solid var(--dark-line);padding:10px 16px;user-select:all;overflow-wrap:anywhere}
+.mail button{font:500 14px var(--f-body);color:var(--dark);background:var(--dark-ink);border:0;padding:13px 18px;cursor:pointer}
+.dark .note{background:transparent;color:var(--dark-muted);border-color:var(--dark-line)}
 
-  .subhead {
-    font-size: 22px;
-    line-height: 1.45;
-    color: var(--sumi-soft);
-    max-width: 540px;
-    margin: 0 0 44px;
-    font-weight: 300;
-  }
-
-  .cta-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
-    width: 100%;
-    max-width: 540px;
-  }
-  @media (max-width: 520px) {
-    .cta-row { grid-template-columns: 1fr; }
-  }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 14px 22px;
-    border-radius: 2px;
-    font-size: 14px;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    text-align: center;
-    transition: transform 120ms ease, background 120ms ease;
-    box-sizing: border-box;
-    border: 1px solid transparent;
-    min-height: 48px;
-  }
-  .btn-primary {
-    background: var(--sumi); color: var(--paper);
-  }
-  .btn-primary:hover { background: var(--shu-deep); }
-  .btn-ghost {
-    background: transparent; color: var(--sumi);
-    border-color: var(--rule);
-  }
-  .btn-ghost:hover { border-color: var(--sumi); }
-  .btn .arrow { font-family: "Fraunces", Georgia, serif; font-size: 16px; }
-
-  /* Hero side art — phone */
-  .hero-art {
-    position: relative;
-    align-self: stretch;
-    display: flex; align-items: flex-end; justify-content: center;
-    min-height: 540px;
-  }
-  /* iPhone-style frame + real app screenshot */
-  .hero-art figure.phone {
-    margin: 0;
-  }
-  .phone {
-    position: relative;
-    width: 320px;
-    max-width: 100%;
-    aspect-ratio: 9 / 19;
-    background: var(--paper-deep);
-    border-radius: 42px;
-    box-shadow:
-      0 1px 0 oklch(1 0 0 / 0.6) inset,
-      0 0 0 1px var(--paper-edge),
-      0 30px 60px -20px oklch(0.18 0.012 60 / 0.25),
-      0 8px 20px -10px oklch(0.18 0.012 60 / 0.15);
-    padding: 12px;
-    overflow: hidden;
-  }
-  .phone::before,
-  .phone::after {
-    content: "";
-    position: absolute;
-    width: 3px;
-    border-radius: 2px;
-    background: linear-gradient(180deg, var(--paper-edge), #b8c5c5);
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.9;
-  }
-  .phone::before {
-    left: 3px;
-    top: 20%;
-    height: 48px;
-  }
-  .phone::after {
-    right: 3px;
-    top: 26%;
-    height: 64px;
-  }
-  .phone__screen {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
-    overflow: hidden;
-    background: #eef1f2;
-    border: 1px solid var(--paper-edge);
-    box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.35);
-  }
-  .phone__screen img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: top center;
-    display: block;
-  }
-
-  .tate {
-    position: absolute;
-    left: -28px; bottom: 30px;
-    writing-mode: vertical-rl;
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 13px;
-    color: var(--sumi-mute);
-    letter-spacing: 0.4em;
-  }
-  @media (max-width: 900px) { .tate { display: none; } }
-
-  /* ---------- DIVIDER ---------- */
-  .marquee {
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-    padding: 22px 56px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px 28px;
-    color: var(--sumi-soft);
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  @media (max-width: 720px) {
-    .marquee {
-      padding: 22px 28px;
-      gap: 10px 18px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-    }
-  }
-  .marquee .ja { font-family: "Fraunces", Georgia, serif; letter-spacing: 0.2em; text-transform: none; color: var(--shu); }
-  .marquee span { max-width: 100%; text-align: center; }
-
-  /* ---------- SECTION SHELL ---------- */
-  section { padding: 120px 0; position: relative; }
-  @media (max-width: 720px) { section { padding: 80px 0; } }
-
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 12px;
-    font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--sumi-mute);
-    margin-bottom: 26px;
-  }
-  .eyebrow .num { font-family: "Fraunces", Georgia, serif; color: var(--shu); font-size: 13px; }
-  .eyebrow .ja  { font-family: "Fraunces", Georgia, serif; color: var(--shu); letter-spacing: 0.1em; text-transform: none; font-size: 14px; }
-  .eyebrow .bar { width: 28px; height: 1px; background: var(--rule); }
-
-  h2.section-title {
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 500;
-    font-size: clamp(36px, 5vw, 64px);
-    line-height: 1.05;
-    letter-spacing: -0.018em;
-    margin: 0 0 24px;
-    max-width: 820px;
-  }
-  h2.section-title em { font-style: normal; color: var(--shu); }
-
-  .lead {
-    font-size: 19px;
-    color: var(--sumi-soft);
-    max-width: 640px;
-    margin: 0;
-    font-weight: 300;
-    line-height: 1.55;
-  }
-
-  /* ---------- AWARENESS (story) ---------- */
-  .awareness {
-    max-width: 720px;
-  }
-
-  .pull-numbers {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 28px;
-    margin-top: 44px;
-    padding-top: 32px;
-    border-top: 1px solid var(--rule);
-  }
-  .pn .n {
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 44px; font-weight: 500; color: var(--sumi);
-    line-height: 1;
-  }
-  .pn .n em { font-style: normal; color: var(--shu); }
-  .pn .lbl { font-size: 13px; color: var(--sumi-mute); margin-top: 8px; }
-
-  /* ---------- FEATURES ---------- */
-  .features { background: var(--paper-deep); }
-  .features .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 0;
-    margin-top: 60px;
-    border-top: 1px solid var(--rule);
-    border-left: 1px solid var(--rule);
-  }
-  .feat {
-    grid-column: span 6;
-    border-right: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-    padding: 32px 28px 36px;
-    background: var(--paper);
-    position: relative;
-    min-height: 0;
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  @media (max-width: 760px) { .feat { grid-column: span 12; } }
-  .feat .num {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px; letter-spacing: 0.12em;
-    color: var(--sumi-mute);
-  }
-  .feat h3 {
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 1.2;
-    margin: 0;
-    color: var(--sumi);
-  }
-  .feat p {
-    font-size: 15px; color: var(--sumi-soft); margin: 0;
-    max-width: 42ch;
-  }
-
-  /* ---------- BUDGET ---------- */
-  .budget {
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  @media (max-width: 900px) { .budget { grid-template-columns: 1fr; gap: 50px; } }
-
-  .budget .col-text { max-width: 520px; }
-  .budget .col-text ul.spec {
-    list-style: none; padding: 0; margin: 32px 0 0;
-    display: flex; flex-direction: column; gap: 16px;
-  }
-  .spec li {
-    display: grid;
-    grid-template-columns: 88px 1fr;
-    align-items: baseline;
-    gap: 18px;
-    padding: 14px 0;
-    border-top: 1px solid var(--rule);
-  }
-  .spec li:last-child { border-bottom: 1px solid var(--rule); }
-  .spec .k {
-    font-family: "Fraunces", Georgia, serif;
-    color: var(--shu);
-    font-size: 14px;
-    letter-spacing: 0.04em;
-  }
-  .spec .v { font-size: 15px; color: var(--sumi); }
-  .spec .v strong { font-weight: 500; }
-  .spec .v .ex { color: var(--sumi-mute); display: block; font-size: 13px; margin-top: 2px; }
-
-  /* Budget visual mock */
-  .budget-card-stack { position: relative; }
-  .budget-card {
-    background: var(--paper);
-    border: 1px solid var(--paper-edge);
-    border-radius: 4px;
-    padding: 22px 24px;
-    box-shadow: 0 1px 0 oklch(1 0 0 / 0.6) inset, 0 12px 30px -20px oklch(0.18 0.012 60 / 0.3);
-    margin-bottom: 16px;
-  }
-  .budget-card .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
-  .budget-card .nm { font-family: "Fraunces", Georgia, serif; font-size: 18px; color: var(--sumi); }
-  .budget-card .pct { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--sumi-mute); }
-  .bar { height: 4px; background: var(--paper-deep); border-radius: 2px; overflow: hidden; }
-  .bar .fill { height: 100%; background: var(--sumi); }
-  .bar .fill.shu { background: var(--shu); }
-  .budget-card .meta { display: flex; justify-content: space-between; font-family: "JetBrains Mono", monospace; font-size: 11px; color: var(--sumi-mute); margin-top: 10px; letter-spacing: 0.04em; }
-  .budget-card .meta .lim { color: var(--sumi); }
-
-  /* ---------- TRAK (multi-month / multi-currency spending lines) ---------- */
-  .goals {
-    background: var(--goals-bg);
-    color: var(--goals-ink);
-  }
-  .goals .eyebrow { color: var(--goals-eyebrow); }
-  .goals .eyebrow .ja, .goals .eyebrow .num { color: var(--goals-em); }
-  .goals .eyebrow .bar { background: var(--goals-eyebrow-bar); }
-  .goals h2.section-title { color: var(--goals-ink); }
-  .goals h2.section-title em { color: var(--goals-em); }
-  .goals .lead { color: var(--goals-lead); }
-
-  .goals .trak-spec {
-    margin-top: 40px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    list-style: none;
-    padding: 0;
-  }
-  @media (max-width: 900px) { .goals .trak-spec { grid-template-columns: 1fr; } }
-  .goals .trak-spec .k {
-    display: block;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--goals-em);
-    margin-bottom: 8px;
-  }
-  .goals .trak-spec .v {
-    font-size: 14px;
-    line-height: 1.55;
-    color: var(--goals-lead);
-  }
-
-  .envelopes {
-    margin-top: 64px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
-  }
-  @media (max-width: 900px) { .envelopes { grid-template-columns: 1fr; } }
-
-  .env {
-    position: relative;
-    padding: 22px 20px 20px;
-    border-radius: 2px;
-    background: var(--goals-card);
-    border: 1px solid var(--goals-card-edge);
-    display: flex; flex-direction: column;
-    gap: 14px;
-    overflow: hidden;
-  }
-  .env__head {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .env__intro {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .env .stamp {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    background: var(--shu);
-    color: var(--paper);
-    display: grid;
-    place-items: center;
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 22px;
-    border-radius: 4px;
-    position: relative;
-    z-index: 1;
-    box-shadow: inset 0 0 0 1px oklch(0.35 0.08 195 / 0.35);
-  }
-  .env .ttl { font-family: "Fraunces", Georgia, serif; font-size: 22px; color: var(--goals-card-text); line-height: 1.2; }
-  .env .sub { font-size: 13px; color: var(--goals-card-mute); }
-  .env .progress {
-    margin-top: auto;
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  .env .progress .nums {
-    display: flex; justify-content: space-between;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 12px;
-    color: var(--goals-card-text);
-  }
-  .env .progress .nums .of { color: var(--goals-card-mute); }
-  .env .bar { background: var(--goals-bar-track); }
-  .goals .env .bar .fill.shu { background: var(--goals-progress-fill); }
-
-  /* ---------- WHY MANUAL ---------- */
-  .why .quote-box {
-    margin-top: 60px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: start;
-  }
-  @media (max-width: 900px) { .why .quote-box { grid-template-columns: 1fr; gap: 40px; } }
-
-  .why blockquote {
-    margin: 0;
-    font-family: "Fraunces", Georgia, serif;
-    font-size: clamp(28px, 3.4vw, 40px);
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    color: var(--sumi);
-    position: relative;
-    /* Room for the large 「 so it never sits on the first line */
-    padding-left: clamp(60px, 1.55em, 84px);
-    padding-top: 0.12em;
-  }
-  .why blockquote::before {
-    content: "「";
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: clamp(38px, 2.85vw, 50px);
-    color: var(--shu);
-    font-family: "Fraunces", Georgia, serif;
-    line-height: 0.72;
-    pointer-events: none;
-  }
-  .why .observ { display: flex; flex-direction: column; gap: 22px; }
-  .why .observ .row2 {
-    display: flex; gap: 18px; align-items: baseline;
-    padding: 18px 0;
-    border-top: 1px solid var(--rule);
-  }
-  .why .observ .row2:last-child { border-bottom: 1px solid var(--rule); }
-  .why .observ .k {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--shu);
-    width: 70px; flex-shrink: 0;
-  }
-  .why .observ .v { font-size: 16px; color: var(--sumi-soft); }
-
-  /* ---------- PRIVACY ---------- */
-  .privacy {
-    background: var(--paper-deep);
-  }
-  .privacy-grid {
-    max-width: 720px;
-  }
-
-  .privacy ul.commit {
-    list-style: none; padding: 0; margin: 32px 0 0;
-    display: flex; flex-direction: column; gap: 4px;
-  }
-  .privacy ul.commit li {
-    display: grid; grid-template-columns: 24px 1fr; gap: 14px;
-    padding: 14px 0;
-    border-top: 1px solid var(--rule);
-    align-items: baseline;
-    font-size: 16px;
-  }
-  .privacy ul.commit li:last-child { border-bottom: 1px solid var(--rule); }
-  .privacy ul.commit li .x {
-    color: var(--shu);
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 18px;
-    line-height: 1;
-  }
-
-  /* ---------- CTA ---------- */
-  .endcta {
-    text-align: center;
-    padding: 140px 0 120px;
-  }
-  .endcta h2 {
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 500;
-    font-size: clamp(40px, 5vw, 72px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0 auto 24px;
-    max-width: 14ch;
-  }
-  .endcta p {
-    color: var(--sumi-soft); font-size: 18px; max-width: 480px;
-    margin: 0 auto 36px;
-  }
-  .endcta .cta-row {
-    max-width: min(100%, 680px);
-    margin-inline: auto;
-  }
-
-  /* ---------- FOOTER ---------- */
-  footer {
-    border-top: 1px solid var(--rule);
-    padding: 36px 0 48px;
-    display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
-    color: var(--sumi-mute);
-    font-size: 13px;
-  }
-  footer .ja { font-family: "Fraunces", Georgia, serif; color: var(--sumi-soft); }
-  footer a { color: inherit; text-decoration: none; }
-  footer a:hover { color: var(--shu); }
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:26px;font-size:13.5px;color:var(--faint)}
 
 </style>
 </head>
-<body>
-
-<div class="page">
-
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="mark">
-      <div class="seal" aria-hidden="true">S</div>
-      <div>Skie<span class="ja"> &nbsp;·&nbsp; intentional spending</span></div>
+<body class="studio">
+<main>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="/"><span class="mark" aria-hidden="true">S</span><b>Skie Design Studio</b></a>
+      <nav class="nav" aria-label="Studio">
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <nav class="nav">
-      <a href="#features">Features</a>
-      <a href="#budgets">Budgets</a>
-      <a href="#trak">TRAK</a>
-      <a href="#privacy">Privacy</a>
-    </nav>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-text">
-      <div class="hero-meta">
-        <div class="hero-meta__row">
-          <span class="dot" aria-hidden="true"></span>
-          <span>Now in Alpha · Web</span>
-        </div>
-        <div class="hero-meta__row">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="ja">iOS &amp; Android in beta soon</span>
-        </div>
-      </div>
-      <h1 class="headline">
-        Track spending<br />
-        <em>intentionally.</em>
-      </h1>
-      <p class="subhead">Skie is a manual expense tracker that puts you in control. Every entry is a small act of attention—and the start of a better habit.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="https://skie-finance.vercel.app/" target="_blank" rel="noopener">Try the Alpha (Web) <span class="arrow">→</span></a>
-        <a class="btn btn-ghost" href="#features">See how it works</a>
-      </div>
-    </div>
-
-    <div class="hero-art">
-      <div class="tate" aria-hidden="true">SPEND&nbsp;·&nbsp;DELIBERATELY</div>
-      <figure class="phone">
-        <div class="phone__screen">
-          <img
-            src="assets/hero-app-home.png"
-            alt="Skie mobile app Home screen: Sun May 17 with May total, ledger and recurring breakdown, Budgets and TRAKS cards including India, 2026 yearly overview, and tab bar."
-            width="471"
-            height="1024"
-            decoding="async"
-          />
-        </div>
-      </figure>
-    </div>
-  </section>
-
-</div>
-
-<!-- MARQUEE / DIVIDER -->
-<div class="marquee" aria-hidden="true">
-  <span>Mindful</span>
-  <span>· Manual Entry</span>
-  <span>· On-Device Privacy</span>
-  <span>· Intentional Habits</span>
-  <span>· No Bank Sync</span>
-  <span>· Quiet Tools</span>
-</div>
-
-<div class="page">
-
-  <!-- AWARENESS / KNOW WHERE YOUR MONEY GOES -->
-  <section class="awareness">
-    <div>
-      <div class="eyebrow"><span class="num">01</span><span class="bar"></span> Purpose</div>
-      <h2 class="section-title">Know where<br />your money <em>goes.</em></h2>
-      <p class="lead">Skie helps you spend with intention. Manual logging makes you aware of your habits—and helps you make better decisions, one entry at a time.</p>
-
-      <div class="pull-numbers">
-        <div class="pn"><div class="n"><em>~10s</em></div><div class="lbl">to log a typical entry</div></div>
-        <div class="pn"><div class="n">0<em>.</em>0</div><div class="lbl">accounts synced. by design.</div></div>
-      </div>
-    </div>
-  </section>
-
-</div>
-
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="page">
-    <div class="eyebrow"><span class="num">02</span><span class="bar"></span> Features</div>
-    <h2 class="section-title">Small tools, used <em>often.</em></h2>
-    <p class="lead">Designed for the moments you'd otherwise skip—standing at the till, between meetings, on the train home.</p>
-
-    <div class="grid">
-      <div class="feat">
-        <span class="num">01 · REPEAT</span>
-        <h3>Quick selection<br />from past expenses.</h3>
-        <p>Same coffee shop, same store. Repeat a recent entry in two taps and keep your hands on your day.</p>
-      </div>
-      <div class="feat">
-        <span class="num">02 · CAPTURE</span>
-        <h3>Snap a receipt<br />for the amount.</h3>
-        <p>Point your camera at a receipt and Skie copies the amount into your entry—nothing is stored. A quick way to log when you'd rather not type.</p>
-      </div>
-      <div class="feat">
-        <span class="num">03 · BUDGET</span>
-        <h3>Flexible budgets<br />on your terms.</h3>
-        <p>Set limits by category, by merchant, or by any custom tag you invent. Budgets bend to your life, not the reverse.</p>
-      </div>
-      <div class="feat">
-        <span class="num">04 · TRAK</span>
-        <h3>TRAK what crosses months<br />and borders.</h3>
-        <p>A trip abroad, tuition, a wedding—log in any currency, convert to your base, and optionally keep it off your monthly ledger.</p>
-      </div>
+  <div class="hero">
+    <div class="wrap">
+      <div class="status">Four apps · All in Alpha on the web</div>
+      <h1>Products for <em>everyday use.</em></h1>
+      <p class="lede">Skie Design Studio makes small apps that each do one everyday job: tracking spending, working through checklists, sharing a trip with family, and keeping what you read.</p>
+      <nav class="strip" aria-label="Jump to a product">
+        <a href="/skie-finance" style="--p:var(--skie)"><i></i><span>Skie Finance</span></a>
+        <a href="/cheklists" style="--p:var(--chek)"><i></i><span>ChekLists</span></a>
+        <a href="/reveal" style="--p:var(--reveal)"><i></i><span>Reveal</span></a>
+        <a href="/marginalia" style="--p:var(--marg)"><i></i><span>Marginalia</span></a>
+      </nav>
     </div>
   </div>
-</section>
 
-<div class="page">
-
-  <!-- BUDGETS -->
-  <section id="budgets">
-    <div class="budget">
-      <div class="col-text">
-        <div class="eyebrow"><span class="num">03</span><span class="bar"></span> Smart Budgets</div>
-        <h2 class="section-title">Set spending limits <em>your way.</em></h2>
-        <p class="lead">Budgets in Skie are not categories handed down to you. You decide the shape: broad, narrow, or somewhere in between.</p>
-
-        <ul class="spec">
-          <li>
-            <span class="k">By category</span>
-            <span class="v"><strong>Groceries, Dining, Entertainment</strong><span class="ex">The classic shape, when you want a steady rhythm.</span></span>
-          </li>
-          <li>
-            <span class="k">By merchant</span>
-            <span class="v"><strong>Starbucks, Target, Amazon</strong><span class="ex">A scalpel for the few places you keep returning to.</span></span>
-          </li>
-          <li>
-            <span class="k">By tag</span>
-            <span class="v"><strong>#gym ・ #office ・ #date-night</strong><span class="ex">Your own labels, for the way you actually live.</span></span>
-          </li>
-        </ul>
+  <section id="products" class="band">
+    <div class="wrap stack" style="gap:36px">
+      <div class="head">
+        <div class="stack" style="gap:14px">
+          <span class="label">Products</span>
+          <h2>One job each, <em>done simply.</em></h2>
+        </div>
+        <p class="lede" style="max-width:38ch;font-size:16px">Each app has its own page with the details, and a link to try it on the web.</p>
       </div>
 
-      <div class="budget-card-stack">
-        <div class="budget-card">
-          <div class="head">
-            <div class="nm">Dining <span style="color:var(--sumi-mute); font-family:'JetBrains Mono', monospace; font-size:11px; margin-left:6px;">category</span></div>
-            <div class="pct">62%</div>
+      <div class="shelf">
+        <article class="prod" id="p-skie" style="--p:var(--skie)">
+          <div class="row">
+            <div class="id"><span class="pm" aria-hidden="true">S</span><span class="name">Skie Finance</span></div>
+            <span class="what">Spending</span>
           </div>
-          <div class="bar"><div class="fill" style="width:62%"></div></div>
-          <div class="meta"><span>$248.40 spent</span><span class="lim">/ $400 limit</span></div>
-        </div>
-        <div class="budget-card">
-          <div class="head">
-            <div class="nm">Starbucks <span style="color:var(--sumi-mute); font-family:'JetBrains Mono', monospace; font-size:11px; margin-left:6px;">merchant</span></div>
-            <div class="pct">88%</div>
+          <h3>Track spending <em>intentionally.</em></h3>
+          <p>A manual expense tracker that puts you in control. Every entry is a small act of attention, and your data stays with you.</p>
+          <div class="pstat"><span>Alpha · Web</span><span>iOS &amp; Android beta soon</span></div>
+          <div class="links">
+            <a class="main" href="/skie-finance">About Skie Finance →</a>
+            <a class="sub" href="https://skie-finance.vercel.app/" target="_blank" rel="noopener">Open the app ↗</a>
           </div>
-          <div class="bar"><div class="fill shu" style="width:88%"></div></div>
-          <div class="meta"><span>$44.00 spent</span><span class="lim">/ $50 limit</span></div>
-        </div>
-        <div class="budget-card">
-          <div class="head">
-            <div class="nm">#gym <span style="color:var(--sumi-mute); font-family:'JetBrains Mono', monospace; font-size:11px; margin-left:6px;">custom tag</span></div>
-            <div class="pct">31%</div>
+        </article>
+
+        <article class="prod" id="p-cheklists" style="--p:var(--chek)">
+          <div class="row">
+            <div class="id"><span class="pm" aria-hidden="true">C</span><span class="name">ChekLists</span></div>
+            <span class="what">Checklists</span>
           </div>
-          <div class="bar"><div class="fill" style="width:31%"></div></div>
-          <div class="meta"><span>$24.00 spent</span><span class="lim">/ $75 limit</span></div>
-        </div>
+          <h3>Checklists that become <em>tasks.</em></h3>
+          <p>Turn a checklist into tasks that come due on schedule, for a whole team or for one person keeping track.</p>
+          <div class="pstat"><span>Alpha · Web</span><span>Demo, no sign-up</span></div>
+          <div class="links">
+            <a class="main" href="/cheklists">About ChekLists →</a>
+            <a class="sub" href="https://checklists-theta.vercel.app/auth/login" target="_blank" rel="noopener">Try the demo ↗</a>
+          </div>
+        </article>
+
+        <article class="prod" id="p-reveal" style="--p:var(--reveal)">
+          <div class="row">
+            <div class="id"><span class="pm" aria-hidden="true">R</span><span class="name">Reveal</span></div>
+            <span class="what">Trips</span>
+          </div>
+          <h3>Share the trip. <em>Keep family close.</em></h3>
+          <p>A private trip briefing: flights, stays, cars and documents in one place, opened only by the family emails on your list.</p>
+          <div class="pstat"><span>Alpha · Web</span><span>No account for family</span></div>
+          <div class="links">
+            <a class="main" href="/reveal">About Reveal →</a>
+            <a class="sub" href="https://travelplans-three.vercel.app/" target="_blank" rel="noopener">Open the app ↗</a>
+          </div>
+        </article>
+
+        <article class="prod" id="p-marginalia" style="--p:var(--marg)">
+          <div class="row">
+            <div class="id"><span class="pm it" aria-hidden="true">M</span><span class="name" style="font-style:italic">Marginalia</span></div>
+            <span class="what">Reading</span>
+          </div>
+          <h3>Keep the passages <em>that stay with you.</em></h3>
+          <p>Send selected paragraphs from what you read to one place, where they are catalogued and easy to recall.</p>
+          <div class="pstat"><span>Alpha · Web</span></div>
+          <div class="links">
+            <a class="main" href="/marginalia">About Marginalia →</a>
+            <a class="sub" href="https://marginalia-three-red.vercel.app/" target="_blank" rel="noopener">Open the app ↗</a>
+          </div>
+        </article>
+      </div>
+      </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="stack">
+        <span class="label">About the studio</span>
+        <h2>Made by <em>one person.</em></h2>
+        <p class="lede">Skie Design Studio is a solo build. One person designs and builds each of these apps.</p>
+      </div>
+      <div class="facts" aria-label="What the four apps have in common">
+        <div><b>One job per app</b><span>Spending, checklists, trips, reading. Each app does one thing.</span></div>
+        <div><b>On the web today</b><span>All four are in Alpha on the web. Skie Finance's iOS and Android beta comes next.</span></div>
+        <div><b>Your data, your call</b><span>Skie Finance keeps entries on your device. Reveal lets only the family on your list open a trip.</span></div>
       </div>
     </div>
   </section>
 
-</div>
-
-<!-- TRAK -->
-<section class="goals" id="trak">
-  <div class="page">
-    <div class="eyebrow"><span class="num">04</span><span class="bar"></span> TRAK</div>
-    <h2 class="section-title">TRAK when one month <em>isn't enough.</em></h2>
-    <p class="lead">A TRAK is its own spending line for something that stretches across months or currencies—a trip abroad, tuition, an upcoming wedding. Log entries in local currency; Skie converts them to your app's base currency. When you set one up, you can keep it out of your monthly ledger so everyday totals stay clear.</p>
-
-    <ul class="trak-spec">
-      <li>
-        <span class="k">Any currency</span>
-        <span class="v">On a trip, log in yen, euros, or whatever you're spending. Each amount converts to your base currency automatically.</span>
-      </li>
-      <li>
-        <span class="k">Across months</span>
-        <span class="v">Weddings, tuition, renovations—follow the real cost of something that doesn't fit a single billing cycle.</span>
-      </li>
-      <li>
-        <span class="k">Separate ledger</span>
-        <span class="v">Exclude a TRAK from your monthly totals when you set it up, so special spending doesn't blur your day-to-day habits.</span>
-      </li>
-    </ul>
-
-    <div class="envelopes">
-      <div class="env">
-        <div class="env__head">
-          <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">TRIP</div>
-          <div class="env__intro">
-            <div class="ttl">Tokyo Trip</div>
-            <div class="sub">¥ &amp; USD · converted to base</div>
-          </div>
-        </div>
-        <div class="progress">
-          <div class="nums"><span>$2,640</span><span class="of">of $4,000</span></div>
-          <div class="bar"><div class="fill shu" style="width:66%"></div></div>
-        </div>
-      </div>
-      <div class="env">
-        <div class="env__head">
-          <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">EDU</div>
-          <div class="env__intro">
-            <div class="ttl">College Tuition</div>
-            <div class="sub">Spring semester · 2026</div>
-          </div>
-        </div>
-        <div class="progress">
-          <div class="nums"><span>$820</span><span class="of">of $12,000</span></div>
-          <div class="bar"><div class="fill shu" style="width:14%"></div></div>
-        </div>
-      </div>
-      <div class="env">
-        <div class="env__head">
-          <div class="stamp" style="font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.06em;">WED</div>
-          <div class="env__intro">
-            <div class="ttl">Wedding in October</div>
-            <div class="sub">October</div>
-          </div>
-        </div>
-        <div class="progress">
-          <div class="nums"><span>$1,240</span><span class="of">of $3,500</span></div>
-          <div class="bar"><div class="fill shu" style="width:35%"></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="page">
-
-  <!-- WHY MANUAL -->
-  <section class="why">
-    <div class="eyebrow"><span class="num">05</span><span class="bar"></span> Why Manual?</div>
-    <h2 class="section-title">The friction <em>is the feature.</em></h2>
-
-    <div class="quote-box">
-      <blockquote>
-        Studies show manual tracking builds better financial habits. When you log each purchase, you notice patterns—and make intentional choices.
-      </blockquote>
-      <div class="observ">
-        <div class="row2"><div class="k">Notice</div><div class="v">Each entry is a quiet pause that surfaces what you'd otherwise miss.</div></div>
-        <div class="row2"><div class="k">Reflect</div><div class="v">Patterns emerge across days and weeks—your real shape, not an algorithm's guess.</div></div>
-        <div class="row2"><div class="k">Decide</div><div class="v">Awareness becomes choice. Choice becomes the habit you wanted in the first place.</div></div>
+  <section id="contact" class="dark">
+    <div class="wrap">
+      <span class="label" style="color:var(--dark-muted)">Contact</span>
+      <h2>Questions, ideas, <em>beta invites.</em></h2>
+      <p class="lede">Write to the studio about any of the apps.</p>
+      <div class="mail">
+        <code id="email">info@skiedesignstudio.com</code>
+        <button type="button" id="copy-email">Copy address</button>
       </div>
     </div>
   </section>
 
-</div>
-
-<!-- PRIVACY -->
-<section class="privacy" id="privacy">
-  <div class="page">
-    <div class="privacy-grid">
-      <div>
-        <div class="eyebrow"><span class="num">06</span><span class="bar"></span> Privacy</div>
-        <h2 class="section-title">Your data <em>stays with you.</em></h2>
-        <p class="lead">Skie is built around a simple promise: your spending is your business. We do not sync to external accounts. We do not share your data.</p>
-        <ul class="commit">
-          <li><span class="x">✕</span><span>No bank account connections, ever.</span></li>
-          <li><span class="x">✕</span><span>No third-party analytics on your entries.</span></li>
-          <li><span class="x">✕</span><span>No cloud backup unless you choose it.</span></li>
-          <li><span class="x">✕</span><span>No ads. No data resale. No exceptions.</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="page">
-
-  <!-- END CTA -->
-  <section class="endcta" id="download">
-    <h2>Spend with a clear sky.</h2>
-    <p>Skie is in Alpha on the web—open to friends and family. iOS and Android beta apps are coming soon.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="https://skie-finance.vercel.app/" target="_blank" rel="noopener">Open the Web Alpha <span class="arrow">→</span></a>
-      <a class="btn btn-ghost" href="mailto:info@skiedesignstudio.com?subject=Skie%20iOS%20%2F%20Android%20beta">Join the iOS / Android beta list</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div>© 2026 Skie</div>
-    <a href="mailto:info@skiedesignstudio.com">info@skiedesignstudio.com</a>
-  </footer>
-
-</div>
-
+  <footer><div class="wrap"><span>© 2026 Skie Design Studio</span><span>Skie Finance · ChekLists · Reveal · Marginalia</span></div></footer>
+</main>
+<script>
+(function () {
+  var skie = ["features","budgets","trak","privacy","download"];
+  var id = (location.hash || "").slice(1);
+  if (skie.indexOf(id) > -1) location.replace("/skie-finance#" + id);
+})();
+</script>
+<script>
+(function(){
+  var btn=document.getElementById("copy-email");
+  if(!btn)return;
+  btn.addEventListener("click",function(){
+    var t=document.getElementById("email").textContent;
+    navigator.clipboard.writeText(t).then(function(){ btn.textContent="Copied"; setTimeout(function(){ btn.textContent="Copy address"; },2000); });
+  });
+})();
+</script>
 </body>
 </html>
