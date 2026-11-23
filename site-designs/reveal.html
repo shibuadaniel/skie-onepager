@@ -1,0 +1,290 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Reveal Page Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one long product page in Skie's pattern (hero, numbered sections, dark band, closing CTA), with draft notes for SD pinned inline. */
+:root {
+  --bg: #eef3f4;
+  --surface: #ffffff;
+  --ink: #13232b;
+  --muted: #56666e;
+  --line: #d3dde0;
+  --accent: #2c4f7c;        /* Reveal's own accent: dusk blue, beside Skie's teal */
+  --accent-soft: #dfe7f2;
+  --band: #14222c;          /* dark section band */
+  --band-ink: #e6eef2;
+  --band-muted: #9fb2bc;
+  --note-bg: #fff6d6;
+  --note-ink: #5a4500;
+  --note-line: #e8cf6e;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a20; --surface: #16242c; --ink: #e8eff2; --muted: #9db0b9; --line: #26373f;
+    --accent: #9db8e0; --accent-soft: #1f3147; --band: #0a1318; --band-ink: #e6eef2; --band-muted: #93a6b0;
+    --note-bg: #3a3112; --note-ink: #f3dc8a; --note-line: #6d5a1f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a20; --surface: #16242c; --ink: #e8eff2; --muted: #9db0b9; --line: #26373f;
+  --accent: #9db8e0; --accent-soft: #1f3147; --band: #0a1318; --band-ink: #e6eef2; --band-muted: #93a6b0;
+  --note-bg: #3a3112; --note-ink: #f3dc8a; --note-line: #6d5a1f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--body); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 em, h2 em { font-style: italic; color: var(--accent); }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* review bar */
+.review { background: var(--note-bg); color: var(--note-ink); border-bottom: 1px solid var(--note-line); font-size: 14px; }
+.review .wrap { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding-block: 10px; }
+.review button { font: 500 13px var(--body); color: var(--note-ink); background: transparent; border: 1px solid var(--note-line); padding: 6px 12px; cursor: pointer; }
+
+/* draft notes */
+.note { display: block; background: var(--note-bg); color: var(--note-ink); border: 1px dashed var(--note-line); font: 400 14px/1.5 var(--body); padding: 10px 12px; }
+.note b { font-weight: 600; }
+.ph { background: var(--note-bg); color: var(--note-ink); padding: 0 4px; border-bottom: 1px dashed var(--note-line); }
+body.clean .note { display: none; }
+body.clean .ph { background: transparent; color: inherit; border: 0; padding: 0; }
+
+/* header */
+header .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding-block: 24px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.mark { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--bg); display: grid; place-items: center; font: 500 17px var(--display); }
+.brand b { font: 500 22px var(--display); }
+.brand span { color: var(--muted); font-size: 14px; }
+nav { display: flex; gap: 20px; font-size: 14px; }
+nav a { text-decoration: none; color: var(--muted); }
+nav a:hover { color: var(--ink); }
+
+/* hero */
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; padding-block: 32px 72px; }
+.hero .wrap > * { min-width: 0; }
+.badges { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.badge { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+h1 { font-size: clamp(42px, 7vw, 72px); line-height: 1.02; }
+.lede { font-size: 19px; color: var(--muted); max-width: 34em; margin-top: 22px; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; font: 500 15px var(--body); text-decoration: none; border: 1px solid var(--ink); }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.hero .note { margin-top: 18px; }
+
+/* phone mock */
+.phone { width: 100%; max-width: 300px; margin: 0 auto; background: var(--line); border-radius: 40px; padding: 10px; }
+.screen { background: var(--bg); border-radius: 32px; padding: 22px 16px; display: flex; flex-direction: column; gap: 12px; }
+.screen .k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.trip { background: var(--surface); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.trip h3 { font-size: 24px; }
+.trip .sub { color: var(--muted); font-size: 13px; }
+.row { background: var(--surface); border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 13px; }
+.row .tag { grid-row: span 2; align-self: center; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; color: var(--accent); background: var(--accent-soft); padding: 4px 6px; border-radius: 6px; }
+.row .t { font-weight: 500; }
+.row .d { color: var(--muted); font-size: 12px; }
+.shared { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.dots { display: flex; }
+.dots i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--surface); background: var(--accent-soft); margin-left: -6px; }
+.dots i:first-child { margin-left: 0; background: var(--accent); }
+.mockcap { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+/* ticker */
+.ticker { border-block: 1px solid var(--line); }
+.ticker .wrap { display: flex; flex-wrap: wrap; gap: 6px 14px; padding-block: 16px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* sections */
+section .wrap { padding-block: 88px; display: flex; flex-direction: column; gap: 22px; }
+.eyebrow { display: flex; gap: 12px; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.eyebrow b { color: var(--accent); font-weight: 600; }
+h2 { font-size: clamp(32px, 4.6vw, 48px); line-height: 1.08; max-width: 16em; }
+.intro { color: var(--muted); max-width: 36em; font-size: 18px; }
+
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 10px; }
+.card { background: var(--surface); border: 1px solid var(--line); padding: 26px; display: flex; flex-direction: column; gap: 10px; }
+.card .lbl { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.card h3 { font-size: 24px; line-height: 1.2; }
+.card p { color: var(--muted); font-size: 15px; }
+
+.band { background: var(--band); color: var(--band-ink); }
+.band .eyebrow, .band .intro { color: var(--band-muted); }
+.band h2 em { color: var(--band-ink); opacity: 0.85; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 10px; }
+.step { border-top: 1px solid var(--band-muted); padding-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+.step b { font: 500 22px var(--display); }
+.step span { color: var(--band-muted); font-size: 15px; }
+
+.promise { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; max-width: 40em; }
+.promise li { display: flex; gap: 14px; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.promise li::before { content: "—"; color: var(--accent); font-size: 14px; flex: none; }
+.stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 640px; margin-top: 8px; }
+.stat { border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 4px; }
+.stat b { font: 500 44px/1 var(--display); color: var(--accent); }
+.stat span { color: var(--muted); font-size: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips span { font-size: 13px; padding: 5px 12px; border: 1px solid var(--line); background: var(--surface); }
+
+.closing .wrap { align-items: center; text-align: center; padding-block: 100px; }
+.closing h2 { max-width: none; }
+.closing .intro { text-align: center; }
+.closing .ctas { justify-content: center; }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding-block: 24px; font-size: 14px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 36px; }
+  .cards, .steps { grid-template-columns: 1fr; }
+  section .wrap { padding-block: 64px; }
+  nav { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="review">
+  <div class="wrap">
+    <span><b>Draft preview for SD.</b> Not live. Yellow notes mark what I still need from you.</span>
+    <button type="button" id="toggle-notes" aria-pressed="false">Hide notes</button>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><div class="mark" aria-hidden="true">R</div><b>Reveal</b><span>· trip details for family</span></div>
+    <nav aria-label="Page sections">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="badges">
+        <span class="badge">Now in Alpha · Web</span>
+      </div>
+      <h1>Share the trip. <em>Keep family close.</em></h1>
+      <p class="lede">Reveal is a private trip briefing for you and your family. Keep flights, stays, cars, insurance and documents in one place, then share it with the people on your list.</p>
+      <div class="ctas">
+        <a class="btn primary" href="https://travelplans-three.vercel.app/" target="_blank" rel="noopener">Open Reveal (Web) →</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <span class="note"><b>Needs SD:</b> Are iOS and Android apps planned, like Skie? If so, I'll add a second badge.</span>
+    </div>
+    <figure style="margin:0">
+      <div class="phone" aria-label="Sample Reveal trip">
+        <div class="screen">
+          <span class="k">Your trip</span>
+          <div class="trip">
+            <h3>Sample trip</h3>
+            <span class="sub">Place · Dates</span>
+            <div class="shared"><span class="dots"><i></i><i></i><i></i></span>Shared with 3 family emails</div>
+          </div>
+          <div class="row"><span class="tag">FLY</span><span class="t">Flights</span><span class="d">Getting there and back</span></div>
+          <div class="row"><span class="tag">CAR</span><span class="t">Car rentals</span><span class="d">Getting around</span></div>
+          <div class="row"><span class="tag">STAY</span><span class="t">Stays</span><span class="d">Where you'll sleep</span></div>
+          <div class="row"><span class="tag">INS</span><span class="t">Insurance</span><span class="d">Policy and documents</span></div>
+          <div class="row"><span class="tag">CONG</span><span class="t">Congregations</span><span class="d">Where you'll attend</span></div>
+        </div>
+      </div>
+      <figcaption class="mockcap">Placeholder drawing. Swap for a real Reveal screenshot.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="ticker">
+  <div class="wrap"><span>Private trip briefing</span><span>· Family by email</span><span>· No account for guests</span><span>· Passkey access</span><span>· Private documents</span></div>
+</div>
+
+<section id="purpose">
+  <div class="wrap">
+    <div class="eyebrow"><b>01</b> Purpose</div>
+    <h2>Everyone knows where you're <em>going.</em></h2>
+    <p class="intro">When you travel, family wants the details. Reveal keeps the whole trip in one briefing you share with the people you choose, so nobody has to ask twice.</p>
+    <div class="stats">
+      <div class="stat"><b>0</b><span>accounts your family needs to make</span></div>
+      <div class="stat"><b>1</b><span>emailed code, then just a passkey</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="eyebrow"><b>02</b> Features</div>
+    <h2>Everything about the trip, <em>in one place.</em></h2>
+    <p class="intro">Built for the person who plans the trip and the people waiting at home.</p>
+    <div class="cards">
+      <div class="card"><span class="lbl">01 · Trip</span><h3>Every detail in one briefing.</h3><p>Each trip has its own sections for flights, car rentals, stays, insurance and congregations, with a photo of the destination on your trip list.</p></div>
+      <div class="card"><span class="lbl">02 · Files</span><h3>Documents, kept private.</h3><p>Upload tickets and bookings to a private store. Mark a document for approval, and you okay each guest before they open it.</p></div>
+      <div class="card"><span class="lbl">03 · Share</span><h3>Family in, no account needed.</h3><p>Tap Share on a trip and add their email. They open it with a code sent to that inbox, and see your profile photo so they know it's from you.</p></div>
+      <div class="card"><span class="lbl">04 · Passkey</span><h3>One code, then just a passkey.</h3><p>The first visit saves a passkey on that device. After that, opening the trip asks only for the passkey.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="band">
+  <div class="wrap">
+    <div class="eyebrow"><b>03</b> How it works</div>
+    <h2>From plans to <em>peace of mind.</em></h2>
+    <p class="intro">You plan the trip. Your family opens it from their own inbox.</p>
+    <div class="steps">
+      <div class="step"><b>Add</b><span>Enter the trip: places, dates, flights, stays and the files that go with them.</span></div>
+      <div class="step"><b>Share</b><span>Put your family's emails on the trip's list and send the share link.</span></div>
+      <div class="step"><b>Open</b><span>They enter the code sent to their inbox and save a passkey. Next time, the passkey is enough.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <div class="eyebrow"><b>04</b> Privacy</div>
+    <h2>Your trip, <em>your list.</em></h2>
+    <p class="intro">Trip details say where you'll be and when. Reveal lets only the people you choose see them, and lets you take that back.</p>
+    <ul class="promise">
+      <li>Only emails on your list can open a trip, and only with a code sent to that inbox.</li>
+      <li>Revoke a share link or remove an email whenever you want.</li>
+      <li>Documents stay in a private store, and ones you mark for approval wait for your okay.</li>
+      <li>Share links and codes are stored as hashes, never as the link or code itself.</li>
+      <li>Delete a trip or your account at any time, or download a copy first.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="closing" class="closing">
+  <div class="wrap">
+    <h2>Travel far. <em>Stay close.</em></h2>
+    <p class="intro">Reveal is in Alpha on the web.</p>
+    <div class="ctas">
+      <a class="btn primary" href="https://travelplans-three.vercel.app/" target="_blank" rel="noopener">Open Reveal (Web) →</a>
+      <a class="btn ghost" href="#closing"><span class="ph">Second button</span></a>
+    </div>
+    <span class="note"><b>Needs SD:</b> Skie's second button joins a beta list by email. Does Reveal need one, and what should it say?</span>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>© 2026 Skie Design Studio</span><a href="#top">← All products</a><span>Contact email, same as Skie</span></div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('toggle-notes');
+  btn.addEventListener('click', function () {
+    var clean = document.body.classList.toggle('clean');
+    btn.textContent = clean ? 'Show notes' : 'Hide notes';
+    btn.setAttribute('aria-pressed', String(clean));
+  });
+})();
+</script>
+
+</body></html>

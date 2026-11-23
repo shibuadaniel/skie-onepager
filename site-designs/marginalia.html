@@ -1,0 +1,275 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Marginalia Page Preview</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: one long product page in Skie's pattern (hero, numbered sections, dark band, closing CTA), matching the Checklists and Reveal drafts, with draft notes for SD pinned inline. */
+:root {
+  --bg: #eef3f4;
+  --surface: #ffffff;
+  --paper: #fbfaf6;         /* the page a passage sits on */
+  --ink: #13232b;
+  --muted: #56666e;
+  --line: #d3dde0;
+  --accent: #8a3a32;        /* Marginalia's own accent: red-pencil oxblood, beside Skie's teal */
+  --accent-soft: #f2e2df;
+  --band: #14222c;
+  --band-ink: #e6eef2;
+  --band-muted: #9fb2bc;
+  --note-bg: #fff6d6;
+  --note-ink: #5a4500;
+  --note-line: #e8cf6e;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a20; --surface: #16242c; --paper: #1b2a31; --ink: #e8eff2; --muted: #9db0b9; --line: #26373f;
+    --accent: #e09a8f; --accent-soft: #3a2422; --band: #0a1318; --band-ink: #e6eef2; --band-muted: #93a6b0;
+    --note-bg: #3a3112; --note-ink: #f3dc8a; --note-line: #6d5a1f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a20; --surface: #16242c; --paper: #1b2a31; --ink: #e8eff2; --muted: #9db0b9; --line: #26373f;
+  --accent: #e09a8f; --accent-soft: #3a2422; --band: #0a1318; --band-ink: #e6eef2; --band-muted: #93a6b0;
+  --note-bg: #3a3112; --note-ink: #f3dc8a; --note-line: #6d5a1f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 17px/1.6 var(--body); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+h1 em, h2 em { font-style: italic; color: var(--accent); }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.review { background: var(--note-bg); color: var(--note-ink); border-bottom: 1px solid var(--note-line); font-size: 14px; }
+.review .wrap { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; padding-block: 10px; }
+.review button { font: 500 13px var(--body); color: var(--note-ink); background: transparent; border: 1px solid var(--note-line); padding: 6px 12px; cursor: pointer; }
+
+.note { display: block; background: var(--note-bg); color: var(--note-ink); border: 1px dashed var(--note-line); font: 400 14px/1.5 var(--body); padding: 10px 12px; }
+.note b { font-weight: 600; }
+.ph { background: var(--note-bg); color: var(--note-ink); padding: 0 4px; border-bottom: 1px dashed var(--note-line); }
+body.clean .note { display: none; }
+body.clean .ph { background: transparent; color: inherit; border: 0; padding: 0; }
+
+header .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; padding-block: 24px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.mark { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--bg); display: grid; place-items: center; font: italic 500 18px var(--display); }
+.brand b { font: italic 500 22px var(--display); }
+.brand span { color: var(--muted); font-size: 14px; }
+nav { display: flex; gap: 20px; font-size: 14px; }
+nav a { text-decoration: none; color: var(--muted); }
+nav a:hover { color: var(--ink); }
+
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px; align-items: center; padding-block: 32px 72px; }
+.hero .wrap > * { min-width: 0; }
+.badges { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.badge { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+h1 { font-size: clamp(42px, 7vw, 72px); line-height: 1.02; }
+.lede { font-size: 19px; color: var(--muted); max-width: 34em; margin-top: 22px; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; font: 500 15px var(--body); text-decoration: none; border: 1px solid var(--ink); }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.hero .note { margin-top: 18px; }
+
+/* phone mock: an inbox of passages, each with its source and a margin tick */
+.phone { width: 100%; max-width: 300px; margin: 0 auto; background: var(--line); border-radius: 40px; padding: 10px; }
+.screen { background: var(--bg); border-radius: 32px; padding: 22px 16px; display: flex; flex-direction: column; gap: 12px; }
+.screen .top { display: flex; justify-content: space-between; align-items: baseline; }
+.screen .k { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.screen .count { font: italic 500 13px var(--display); color: var(--accent); }
+.passage { background: var(--paper); border-radius: 12px; padding: 14px 14px 12px 18px; display: flex; flex-direction: column; gap: 8px; position: relative; }
+.passage::before { content: ""; position: absolute; left: 8px; top: 14px; bottom: 34px; width: 2px; background: var(--accent); border-radius: 2px; }
+.passage q { font: italic 400 14px/1.45 var(--display); quotes: none; }
+.passage .src { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; }
+.passage.dim { opacity: 0.7; }
+.mockcap { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+.ticker { border-block: 1px solid var(--line); }
+.ticker .wrap { display: flex; flex-wrap: wrap; gap: 6px 14px; padding-block: 16px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+section .wrap { padding-block: 88px; display: flex; flex-direction: column; gap: 22px; }
+.eyebrow { display: flex; gap: 12px; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.eyebrow b { color: var(--accent); font-weight: 600; }
+h2 { font-size: clamp(32px, 4.6vw, 48px); line-height: 1.08; max-width: 16em; }
+.intro { color: var(--muted); max-width: 36em; font-size: 18px; }
+
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 10px; }
+.card { background: var(--surface); border: 1px solid var(--line); padding: 26px; display: flex; flex-direction: column; gap: 10px; }
+.card .lbl { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+.card h3 { font-size: 24px; line-height: 1.2; }
+.card p { color: var(--muted); font-size: 15px; }
+
+.band { background: var(--band); color: var(--band-ink); }
+.band .eyebrow, .band .intro { color: var(--band-muted); }
+.band .eyebrow b { color: var(--band-ink); }
+.band h2 em { color: var(--band-ink); opacity: 0.85; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 10px; }
+.step { border-top: 1px solid var(--band-muted); padding-top: 16px; display: flex; flex-direction: column; gap: 6px; }
+.step b { font: 500 22px var(--display); }
+.step span { color: var(--band-muted); font-size: 15px; }
+
+.promise { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; max-width: 40em; }
+.promise li { display: flex; gap: 14px; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+.promise li::before { content: "✕"; color: var(--accent); font-size: 14px; }
+
+.closing .wrap { align-items: center; text-align: center; padding-block: 100px; }
+.closing h2 { max-width: none; }
+.closing .intro { text-align: center; }
+.closing .ctas { justify-content: center; }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding-block: 24px; font-size: 14px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 36px; }
+  .cards, .steps { grid-template-columns: 1fr; }
+  section .wrap { padding-block: 64px; }
+  nav { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="review">
+  <div class="wrap">
+    <span><b>Draft preview for SD.</b> Not live. Yellow notes mark what I need from you.</span>
+    <button type="button" id="toggle-notes" aria-pressed="false">Hide notes</button>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><div class="mark" aria-hidden="true">M</div><b>Marginalia</b><span>· passages worth keeping</span></div>
+    <nav aria-label="Page sections">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="badges">
+        <span class="badge">Now in Alpha · Web</span>
+      </div>
+      <h1>Keep the passages <em>that stay with you.</em></h1>
+      <p class="lede">Marginalia lets you send selected paragraphs from what you're reading to one place, where they're catalogued and easy to recall.</p>
+      <div class="ctas">
+        <a class="btn primary" href="https://marginalia-three-red.vercel.app/" target="_blank" rel="noopener">Try the Alpha (Web) →</a>
+        <a class="btn ghost" href="#features">See how it works</a>
+      </div>
+      <span class="note"><b>Check:</b> The button opens the web app, which starts on a sign-in page (email and password, or Google). Are iOS or Android planned, like Skie?</span>
+    </div>
+    <figure style="margin:0">
+      <div class="phone" aria-label="Sample Marginalia inbox">
+        <div class="screen">
+          <div class="top"><span class="k">Inbox</span><span class="count">3 new</span></div>
+          <div class="passage">
+            <q>A paragraph you selected while reading lands here, ready to be filed.</q>
+            <span class="src">Sample source · Chapter 4</span>
+          </div>
+          <div class="passage">
+            <q>Each passage keeps the place it came from, so you can find your way back.</q>
+            <span class="src">Sample article</span>
+          </div>
+          <div class="passage dim">
+            <q>Recall it later, when the idea matters again.</q>
+            <span class="src">Sample notes</span>
+          </div>
+        </div>
+      </div>
+      <figcaption class="mockcap">Placeholder drawing with sample text. Swap for a real Marginalia screenshot.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="ticker">
+  <div class="wrap"><span>Selected passages</span><span>· Catalogued</span><span>· Recalled later</span><span>· <span class="ph">Value 4</span></span></div>
+</div>
+
+<section id="purpose">
+  <div class="wrap">
+    <div class="eyebrow"><b>01</b> Purpose</div>
+    <h2>Read once. <em>Remember it later.</em></h2>
+    <p class="intro">The paragraph that struck you gets lost in the pages around it. Marginalia gives it a place to land, so you can catalogue what you read and recall it when you need it.</p>
+    <span class="note"><b>Needs SD:</b> Skie shows two stats here ("~10s to log an entry", "0.0 accounts synced"). Is there a Marginalia equivalent, like taps to save a passage?</span>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="eyebrow"><b>02</b> Features</div>
+    <h2>From the page <em>to your catalogue.</em></h2>
+    <p class="intro">Four cards, same as Skie. The first comes from your description and the second from what the app shows. The other two are blank rather than guessed.</p>
+    <div class="cards">
+      <div class="card"><span class="lbl">01 · Send</span><h3>Send just the paragraph.</h3><p>Select the passage that matters from a source and send it to Marginalia, without copying out the whole page.</p></div>
+      <div class="card"><span class="lbl">02 · Inbox</span><h3>New passages wait <span class="ph">in your inbox.</span></h3><p><span class="ph">One or two lines on what happens in the inbox.</span></p></div>
+      <div class="card"><span class="lbl">03 · <span class="ph">CATALOGUE</span></span><h3><span class="ph">How passages are catalogued</span></h3><p><span class="ph">By source, tag, topic or something else?</span></p></div>
+      <div class="card"><span class="lbl">04 · <span class="ph">RECALL</span></span><h3><span class="ph">How you recall them</span></h3><p><span class="ph">Search, review, resurfacing, or something else?</span></p></div>
+    </div>
+    <span class="note"><b>Needs SD:</b> What are the top four features? I saw the app has an Inbox page but couldn't see inside it without signing in. Is the inbox where sent passages land?</span>
+  </div>
+</section>
+
+<section id="how" class="band">
+  <div class="wrap">
+    <div class="eyebrow"><b>03</b> How it works</div>
+    <h2>Select, send, <em>recall.</em></h2>
+    <p class="intro">Skie uses two deep-dive sections here. Marginalia can start with one: the path from a passage on the page to finding it again.</p>
+    <div class="steps">
+      <div class="step"><b>Select</b><span>Pick the paragraph worth keeping from your source.</span></div>
+      <div class="step"><b>Send</b><span><span class="ph">How it gets in: share sheet, browser extension, paste, email?</span></span></div>
+      <div class="step"><b>Recall</b><span><span class="ph">How you find it again.</span></span></div>
+    </div>
+    <span class="note"><b>Needs SD:</b> How do you send a passage in, and from what kinds of source (books, web pages, PDFs, ebooks)?</span>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="wrap">
+    <div class="eyebrow"><b>04</b> Privacy</div>
+    <h2>What you read <em>stays yours.</em></h2>
+    <p class="intro">Your highlights say a lot about what you think about. Skie Design Studio builds privacy-first, so Marginalia should say plainly where passages are kept and who can see them.</p>
+    <ul class="promise">
+      <li><span class="ph">Only you can see your passages.</span></li>
+      <li><span class="ph">No third-party analytics on what you save.</span></li>
+      <li><span class="ph">No ads. No data resale.</span></li>
+    </ul>
+    <span class="note"><b>Needs SD:</b> These are placeholders. The app uses accounts (email or Google), so where are passages stored, and which of these promises are true?</span>
+  </div>
+</section>
+
+<section id="closing" class="closing">
+  <div class="wrap">
+    <h2>Read widely. <em>Keep what matters.</em></h2>
+    <p class="intro">Marginalia is in Alpha on the web.</p>
+    <div class="ctas">
+      <a class="btn primary" href="https://marginalia-three-red.vercel.app/" target="_blank" rel="noopener">Open the Web Alpha →</a>
+      <a class="btn ghost" href="#closing"><span class="ph">Second button</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><span>© 2026 Skie Design Studio</span><a href="#top">← All products</a><span>Contact email, same as Skie</span></div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('toggle-notes');
+  btn.addEventListener('click', function () {
+    var clean = document.body.classList.toggle('clean');
+    btn.textContent = clean ? 'Show notes' : 'Hide notes';
+    btn.setAttribute('aria-pressed', String(clean));
+  });
+})();
+</script>
+
+</body></html>

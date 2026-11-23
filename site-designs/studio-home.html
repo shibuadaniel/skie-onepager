@@ -1,0 +1,374 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Skie Design Studio Home</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Skie's landing pattern turned into a studio front door. Pale ground, serif headlines with one italic word, a four-colour strip (one per product), then a 2x2 shelf of product cards. Each product keeps its own accent. */
+:root{
+  --bg:#eef3f3; --band:#dde6e7; --card:#f6f9f9; --line:#c9d6d8;
+  --ink:#13262a; --muted:#566b6f; --faint:#7d9195;
+  --studio:#145f63;
+  --skie:#145f63; --chek:#6a1fd1; --reveal:#2c4f7c; --marg:#8a3a32;
+  --dark:#0f2a2c; --dark-ink:#e6efef; --dark-muted:#9fb6b8; --dark-line:#26474a;
+  --q:#5a4500; --q-bg:#fff6d6; --q-line:#e1c565;
+  --btn:#13262a; --btn-ink:#f4f7f7;
+  --f-display:"Fraunces", Georgia, "Times New Roman", serif;
+  --f-body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0d1a1c; --band:#122426; --card:#152a2d; --line:#28403f;
+  --ink:#e4eeee; --muted:#a3b7b9; --faint:#7f9799;
+  --studio:#6cc3c6;
+  --skie:#6cc3c6; --chek:#c3a3ff; --reveal:#9db8e0; --marg:#e09a8f;
+  --dark:#07292b; --dark-ink:#e6efef; --dark-muted:#9fb6b8; --dark-line:#24494c;
+  --q:#f3dc8a; --q-bg:#3a3112; --q-line:#6d5a1f;
+  --btn:#e4eeee; --btn-ink:#0d1a1c;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0d1a1c; --band:#122426; --card:#152a2d; --line:#28403f;
+  --ink:#e4eeee; --muted:#a3b7b9; --faint:#7f9799;
+  --studio:#6cc3c6;
+  --skie:#6cc3c6; --chek:#c3a3ff; --reveal:#9db8e0; --marg:#e09a8f;
+  --dark:#07292b; --dark-ink:#e6efef; --dark-muted:#9fb6b8; --dark-line:#24494c;
+  --q:#f3dc8a; --q-bg:#3a3112; --q-line:#6d5a1f;
+  --btn:#e4eeee; --btn-ink:#0d1a1c;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--q-bg)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--studio);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(48px,env(safe-area-inset-left,0px));padding-right:max(48px,env(safe-area-inset-right,0px))}}
+
+/* review bar */
+.review{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--q-bg);color:var(--q);border-bottom:1px solid var(--q-line);font-size:13.5px}
+.review .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding-block:9px}
+.review .msg{flex:1 1 240px;min-width:0}
+.tabs{display:flex;gap:4px;border:1px solid var(--q-line);padding:3px;border-radius:999px}
+.tabs a{text-decoration:none;padding:4px 12px;border-radius:999px;white-space:nowrap}
+.tabs a[aria-current="page"]{background:var(--q);color:var(--q-bg)}
+.review button{font:500 13px var(--f-body);color:var(--q);background:transparent;border:1px solid var(--q-line);padding:5px 12px;border-radius:999px;cursor:pointer}
+
+/* draft notes */
+.note{display:block;background:var(--q-bg);color:var(--q);border:1px dashed var(--q-line);font-size:14px;line-height:1.5;padding:10px 14px;border-radius:3px;max-width:62ch}
+.note b{font-weight:600}
+.ph{background:var(--q-bg);color:var(--q);border-bottom:1px dashed var(--q-line);padding:0 4px}
+body.clean .note{display:none}
+body.clean .ph{background:transparent;color:inherit;border:0;padding:0}
+
+/* type */
+h1,h2,h3{font-family:var(--f-display);font-weight:500;letter-spacing:-.015em;text-wrap:balance;margin:0}
+h1 em,h2 em{font-style:italic;color:var(--studio)}
+h1{font-size:clamp(46px,8vw,92px);line-height:.98}
+h2{font-size:clamp(32px,4.4vw,52px);line-height:1.06}
+h3{font-size:28px;line-height:1.1}
+p{margin:0}
+.lede{font-size:clamp(17px,1.7vw,20px);color:var(--muted);max-width:52ch}
+.label{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.stack{display:grid;gap:22px;align-content:start}
+
+/* header */
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.mark{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--bg);font:italic 500 18px var(--f-display)}
+.brand b{font:500 21px var(--f-display)}
+.nav{display:flex;gap:22px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav a{text-decoration:none}
+.nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero .wrap{display:grid;gap:28px;padding-block:clamp(36px,7vw,88px) clamp(40px,6vw,72px)}
+.status{display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--studio)}
+
+/* four-colour strip: one segment per product */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}
+.strip a{display:grid;gap:10px;text-decoration:none;min-width:0}
+.strip i{display:block;height:10px;border-radius:2px;background:var(--p);transition:height .2s}
+.strip a:hover i{height:16px}
+.strip span{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.strip a:hover span{color:var(--ink)}
+
+/* products */
+section{padding-block:clamp(64px,8vw,112px);scroll-margin-top:56px}
+.band{background:var(--band)}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px 32px}
+.shelf{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+@media (min-width:760px){.shelf{grid-template-columns:1fr 1fr}}
+.prod{background:var(--card);padding:clamp(24px,3vw,36px);display:grid;gap:16px;align-content:start;position:relative;min-width:0;scroll-margin-top:64px}
+.prod::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--p)}
+.prod .row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.prod .id{display:flex;align-items:center;gap:12px}
+.prod .pm{width:40px;height:40px;border-radius:50%;background:var(--p);color:var(--card);display:grid;place-items:center;font:500 19px var(--f-display)}
+.prod .pm.it{font-style:italic}
+.prod .name{font:500 24px var(--f-display)}
+.prod .what{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.prod h3{font-size:clamp(26px,2.6vw,32px)}
+.prod h3 em{font-style:italic;color:var(--p)}
+.prod p{color:var(--muted);font-size:15.5px;max-width:46ch}
+.pstat{display:flex;flex-wrap:wrap;gap:6px}
+.pstat span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:3px 8px;border-radius:2px}
+.links{display:flex;flex-wrap:wrap;gap:10px 20px;padding-top:6px;border-top:1px solid var(--line)}
+.links a{font-size:14.5px;font-weight:500;text-decoration:none;padding-top:10px}
+.links a.main{color:var(--p)}
+.links a.sub{color:var(--muted)}
+.links a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* about */
+.about .wrap{display:grid;gap:40px}
+@media (min-width:880px){.about .wrap{grid-template-columns:.9fr 1.1fr;align-items:start}}
+.facts{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.facts div{background:var(--bg);padding:18px 20px;display:grid;gap:4px}
+.facts b{font:500 20px var(--f-display)}
+.facts span{color:var(--muted);font-size:15px}
+
+/* contact (dark band, like Skie's TRAK band) */
+.dark{background:var(--dark);color:var(--dark-ink)}
+.dark .wrap{display:grid;gap:20px;justify-items:start}
+.dark h2 em{color:var(--dark-ink);opacity:.85}
+.dark .lede{color:var(--dark-muted)}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.mail code{font:500 clamp(18px,2.4vw,24px) var(--f-mono);color:var(--dark-ink);background:transparent;border:1px solid var(--dark-line);padding:10px 16px;user-select:all;overflow-wrap:anywhere}
+.mail button{font:500 14px var(--f-body);color:var(--dark);background:var(--dark-ink);border:0;padding:13px 18px;cursor:pointer}
+.dark .note{background:transparent;color:var(--dark-muted);border-color:var(--dark-line)}
+
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:26px;font-size:13.5px;color:var(--faint)}
+
+/* site plan view */
+.plan{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);grid-template-columns:1fr}
+@media (min-width:820px){.plan{grid-template-columns:repeat(3,1fr)}}
+.plan > div{background:var(--card);padding:24px;display:grid;gap:8px;align-content:start;min-width:0}
+.plan b{font:500 20px var(--f-display)}
+.plan p{color:var(--muted);font-size:15px}
+.tree{overflow-x:auto;background:var(--card);border:1px solid var(--line);padding:22px 24px}
+.tree pre{margin:0;font:13.5px/1.75 var(--f-mono);color:var(--ink)}
+.tree .c{color:var(--faint)}
+.tree .s{color:var(--skie)} .tree .k{color:var(--chek)} .tree .r{color:var(--reveal)} .tree .m{color:var(--marg)}
+ol.moves{margin:0;padding-left:1.3em;display:grid;gap:10px;color:var(--muted);max-width:66ch}
+ol.moves b{color:var(--ink);font-weight:600}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="review">
+  <div class="wrap">
+    <span class="msg"><b>Draft for SD.</b> Not live. Yellow notes are for review only.</span>
+    <nav class="tabs" aria-label="Preview views">
+      <a href="#home" id="tab-home" aria-current="page">Studio home</a>
+      <a href="#plan" id="tab-plan">Site plan</a>
+    </nav>
+    <button type="button" id="toggle-notes" aria-pressed="false">Hide notes</button>
+  </div>
+</div>
+
+<!-- ===================== STUDIO HOME ===================== -->
+<main id="view-home">
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#home"><span class="mark" aria-hidden="true">S</span><b>Skie Design Studio</b></a>
+      <nav class="nav" aria-label="Studio">
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <div class="status">Four apps · All in Alpha on the web</div>
+      <h1>Products for <em>everyday use.</em></h1>
+      <p class="lede">Skie Design Studio makes small apps that each do one everyday job: tracking spending, working through checklists, sharing a trip with family, and keeping what you read.</p>
+      <nav class="strip" aria-label="Jump to a product">
+        <a href="#p-skie" style="--p:var(--skie)"><i></i><span>Skie Finance</span></a>
+        <a href="#p-cheklists" style="--p:var(--chek)"><i></i><span>ChekLists</span></a>
+        <a href="#p-reveal" style="--p:var(--reveal)"><i></i><span>Reveal</span></a>
+        <a href="#p-marginalia" style="--p:var(--marg)"><i></i><span>Marginalia</span></a>
+      </nav>
+    </div>
+  </div>
+
+  <section id="products" class="band">
+    <div class="wrap stack" style="gap:36px">
+      <div class="head">
+        <div class="stack" style="gap:14px">
+          <span class="label">Products</span>
+          <h2>One job each, <em>done simply.</em></h2>
+        </div>
+        <p class="lede" style="max-width:38ch;font-size:16px">Each app has its own page with the details, and a link to try it on the web.</p>
+      </div>
+
+      <div class="shelf">
+        <article class="prod" id="p-skie" style="--p:var(--skie)">
+          <div class="row">
+            <div class="id"><span class="pm" aria-hidden="true">S</span><span class="name">Skie Finance</span></div>
+            <span class="what">Spending</span>
+          </div>
+          <h3>Track spending <em>intentionally.</em></h3>
+          <p>A manual expense tracker that puts you in control. Every entry is a small act of attention, and your data stays with you.</p>
+          <div class="pstat"><span>Alpha · Web</span><span>iOS &amp; Android beta soon</span></div>
+          <div class="links">
+            <a class="main" href="https://skiedesignstudio.com" target="_blank" rel="noopener">About Skie Finance →</a>
+            <a class="sub" href="https://skie-finance.vercel.app/" target="_blank" rel="noopener">Open the app ↗</a>
+          </div>
+        </article>
+
+        <article class="prod" id="p-cheklists" style="--p:var(--chek)">
+          <div class="row">
+            <div class="id"><span class="pm" aria-hidden="true">C</span><span class="name">ChekLists</span></div>
+            <span class="what">Checklists</span>
+          </div>
+          <h3>Checklists that become <em>tasks.</em></h3>
+          <p>Turn a checklist into tasks that come due on schedule, for a whole team or for one person keeping track.</p>
+          <div class="pstat"><span>Alpha · Web</span><span>Demo, no sign-up</span></div>
+          <div class="links">
+            <a class="main" href="https://claude.ai/artifact/3zngYDTHtPipd6BfQLN8BM" target="_blank" rel="noopener">About ChekLists →</a>
+            <a class="sub" href="https://checklists-theta.vercel.app/auth/login" target="_blank" rel="noopener">Try the demo ↗</a>
+          </div>
+        </article>
+
+        <article class="prod" id="p-reveal" style="--p:var(--reveal)">
+          <div class="row">
+            <div class="id"><span class="pm" aria-hidden="true">R</span><span class="name">Reveal</span></div>
+            <span class="what">Trips</span>
+          </div>
+          <h3>Share the trip. <em>Keep family close.</em></h3>
+          <p>A private trip briefing: flights, stays, cars and documents in one place, opened only by the family emails on your list.</p>
+          <div class="pstat"><span>Alpha · Web</span><span>No account for family</span></div>
+          <div class="links">
+            <a class="main" href="https://claude.ai/artifact/XhEamo6Wm9x6n25s5GiqPG" target="_blank" rel="noopener">About Reveal →</a>
+            <a class="sub" href="https://travelplans-three.vercel.app/" target="_blank" rel="noopener">Open the app ↗</a>
+          </div>
+        </article>
+
+        <article class="prod" id="p-marginalia" style="--p:var(--marg)">
+          <div class="row">
+            <div class="id"><span class="pm it" aria-hidden="true">M</span><span class="name" style="font-style:italic">Marginalia</span></div>
+            <span class="what">Reading</span>
+          </div>
+          <h3>Keep the passages <em>that stay with you.</em></h3>
+          <p>Send selected paragraphs from what you read to one place, where they are catalogued and easy to recall.</p>
+          <div class="pstat"><span>Alpha · Web</span></div>
+          <div class="links">
+            <a class="main" href="https://claude.ai/artifact/LADMfZwzB8L8fjBVgjtnU5" target="_blank" rel="noopener">About Marginalia →</a>
+            <a class="sub" href="https://marginalia-three-red.vercel.app/" target="_blank" rel="noopener">Open the app ↗</a>
+          </div>
+        </article>
+      </div>
+      <span class="note"><b>Check:</b> I put Skie Finance first since it's the one people already know, then the rest in the order you listed them. "About" links open the draft product pages for now; on the live site they'd go to /skie-finance, /cheklists, /reveal and /marginalia.</span>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="stack">
+        <span class="label">About the studio</span>
+        <h2>Made by <em>one person.</em></h2>
+        <p class="lede">Skie Design Studio is a solo build. One person designs and builds each of these apps.</p>
+      </div>
+      <div class="facts" aria-label="What the four apps have in common">
+        <div><b>One job per app</b><span>Spending, checklists, trips, reading. Each app does one thing.</span></div>
+        <div><b>On the web today</b><span>All four are in Alpha on the web. Skie Finance's iOS and Android beta comes next.</span></div>
+        <div><b>Your data, your call</b><span>Skie Finance keeps entries on your device. Reveal lets only the family on your list open a trip.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="dark">
+    <div class="wrap">
+      <span class="label" style="color:var(--dark-muted)">Contact</span>
+      <h2>Questions, ideas, <em>beta invites.</em></h2>
+      <p class="lede">Write to the studio about any of the apps.</p>
+      <div class="mail">
+        <code id="email">info@skiedesignstudio.com</code>
+        <button type="button" id="copy-email">Copy address</button>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 Skie Design Studio</span><span>Skie Finance · ChekLists · Reveal · Marginalia</span></div></footer>
+</main>
+
+<!-- ===================== SITE PLAN ===================== -->
+<main id="view-plan" hidden>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#home"><span class="mark" aria-hidden="true">S</span><b>Skie Design Studio</b></a>
+      <nav class="nav" aria-label="Plan"><a href="#home">← Studio home</a></nav>
+    </div>
+  </header>
+
+  <section style="padding-top:24px">
+    <div class="wrap stack" style="gap:36px">
+      <div class="stack" style="gap:16px">
+        <span class="label">Site plan</span>
+        <h2>One front door, <em>a page per product.</em></h2>
+        <p class="lede">The root address becomes the studio home. Skie Finance, today's homepage, moves to its own address and stays as it is.</p>
+      </div>
+
+      <div class="tree" role="region" aria-label="Page map" tabindex="0"><pre>skiedesignstudio.com/              <span class="c">Studio home (this draft)</span>
+├── <span class="s">/skie-finance</span>                 <span class="c">Skie Finance page (today's homepage, moved as is)</span>
+├── <span class="k">/cheklists</span>                    <span class="c">ChekLists page</span>
+├── <span class="r">/reveal</span>                       <span class="c">Reveal page</span>
+└── <span class="m">/marginalia</span>                   <span class="c">Marginalia page</span></pre></div>
+
+      <div class="plan">
+        <div><span class="label">Header</span><b>Same on every page</b><p>The studio mark on the left goes home. Product pages keep their own section links, plus "All products".</p></div>
+        <div><span class="label">Colour</span><b>Shared look, own accent</b><p>Same type and layout everywhere. Skie Finance stays teal, ChekLists violet, Reveal dusk blue, Marginalia red pencil.</p></div>
+        <div><span class="label">Footer</span><b>"© 2026 Skie Design Studio"</b><p>One footer for all pages, with a link back to all products and the contact address.</p></div>
+      </div>
+
+      <div class="stack" style="gap:14px">
+        <span class="label">Moving the Skie Finance page</span>
+        <ol class="moves">
+          <li><b>Copy today's page to /skie-finance.</b> Content, buttons and the beta-list email stay the same.</li>
+          <li><b>Change two lines on it.</b> Footer "© 2026 Skie" becomes "© 2026 Skie Design Studio", and the header gets an "All products" link.</li>
+          <li><b>Keep old links working.</b> Links people already have, like skiedesignstudio.com/#privacy, would now land on the studio home. A few lines of script on the home page can send those section links on to /skie-finance.</li>
+          <li><b>Put the studio home at the root.</b> This page.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="wrap"><span>© 2026 Skie Design Studio</span><a href="#home">← Studio home</a></div></footer>
+</main>
+
+<script>
+(function(){
+  var views={home:document.getElementById('view-home'),plan:document.getElementById('view-plan')};
+  var tabs={home:document.getElementById('tab-home'),plan:document.getElementById('tab-plan')};
+  function show(){
+    var h=(location.hash||'').slice(1);
+    var view=h==='plan'?'plan':'home';
+    for(var k in views){views[k].hidden=(k!==view);tabs[k].setAttribute('aria-current',k===view?'page':'false');}
+    if(!h||h==='home'||h==='plan'){window.scrollTo(0,0);}
+    else{var el=document.getElementById(h);if(el)el.scrollIntoView();}
+  }
+  window.addEventListener('hashchange',show);
+  show();
+
+  var btn=document.getElementById('toggle-notes');
+  btn.addEventListener('click',function(){
+    var clean=document.body.classList.toggle('clean');
+    btn.textContent=clean?'Show notes':'Hide notes';
+    btn.setAttribute('aria-pressed',String(clean));
+  });
+
+  var copy=document.getElementById('copy-email');
+  copy.addEventListener('click',function(){
+    var text=document.getElementById('email').textContent;
+    function selectIt(){var r=document.createRange();r.selectNodeContents(document.getElementById('email'));var s=getSelection();s.removeAllRanges();s.addRange(r);copy.textContent='Selected, press copy';}
+    try{
+      navigator.clipboard.writeText(text).then(function(){copy.textContent='Copied';setTimeout(function(){copy.textContent='Copy address';},1600);},selectIt);
+    }catch(e){selectIt();}
+  });
+})();
+</script>
+
+</body></html>
